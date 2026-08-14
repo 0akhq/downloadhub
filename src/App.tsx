@@ -280,6 +280,42 @@ function App() {
         </motion.div>
       </section>
 
+              <motion.div
+  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+  whileInView={{
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+  }}
+  transition={{ duration: 0.8 }}
+  viewport={{ once: true }}
+  className="mb-6"
+>
+  <TextAnimate
+    animation="blurInUp"
+    by="character"
+    className="
+      text-5xl
+      sm:text-6xl
+      md:text-7xl
+      font-black
+      tracking-[-0.05em]
+      bg-gradient-to-r
+      from-pink-400
+      via-purple-400
+      via-blue-400
+      to-cyan-400
+      bg-[length:200%_auto]
+      bg-clip-text
+      text-transparent
+      animate-gradient-x
+      drop-shadow-[0_0_30px_rgba(168,85,247,0.25)]
+    "
+  >
+    Yapımcı: 0akh
+  </TextAnimate>
+</motion.div>
+
       {/* PROGRAMLAR */}
       <section className="relative min-h-screen px-6 py-32">
 
@@ -568,42 +604,6 @@ function App() {
             },
           }}
         />
-
-        <motion.div
-  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-  whileInView={{
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-  }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
-  className="mb-6"
->
-  <TextAnimate
-    animation="blurInUp"
-    by="character"
-    className="
-      text-5xl
-      sm:text-6xl
-      md:text-7xl
-      font-black
-      tracking-[-0.05em]
-      bg-gradient-to-r
-      from-pink-400
-      via-purple-400
-      via-blue-400
-      to-cyan-400
-      bg-[length:200%_auto]
-      bg-clip-text
-      text-transparent
-      animate-gradient-x
-      drop-shadow-[0_0_30px_rgba(168,85,247,0.25)]
-    "
-  >
-    Yapımcı: 0akh
-  </TextAnimate>
-</motion.div>
 
         <div className="relative z-10 text-center">
 
