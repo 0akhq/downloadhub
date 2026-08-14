@@ -316,29 +316,27 @@ function App() {
       hover:shadow-[0_10px_40px_rgba(168,85,247,0.12)]
     "
   >
-    {/* Discord avatar */}
-    <div className="
-      grid
-      h-14
-      w-14
-      shrink-0
-      place-items-center
-      rounded-full
-      bg-gradient-to-br
-      from-indigo-500
-      to-purple-600
-      text-xl
-      font-black
-      text-white
-      shadow-lg
-      shadow-purple-500/20
-    ">
-      0
-    </div>
+    <img
+  src="https://i.pinimg.com/1200x/31/a5/27/31a5279811c56a9d3da2c517036c4d82.jpg"
+  alt="0akh"
+  className="
+    h-14
+    w-14
+    shrink-0
+    rounded-full
+    object-cover
+    ring-2
+    ring-purple-400/20
+    transition-all
+    duration-300
+    group-hover:ring-purple-400/50
+    group-hover:scale-105
+  "
+/>
 
     <div className="min-w-0">
       <p className="mb-0 text-sm font-semibold text-white">
-        0akh
+        !     sudo apt install discrd
       </p>
 
       <p className="mb-0 text-xs text-white/40">
