@@ -280,6 +280,86 @@ function App() {
         </motion.div>
       </section>
 
+      <motion.div
+  initial={{ opacity: 0, y: 25, scale: 0.95 }}
+  whileInView={{
+    opacity: 1,
+    y: 0,
+    scale: 1,
+  }}
+  transition={{ duration: 0.7, delay: 0.2 }}
+  viewport={{ once: true }}
+  className="mx-auto mt-8 max-w-sm"
+>
+  <a
+    href="https://discord.com/users/709426260497137785"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      group
+      flex
+      items-center
+      gap-4
+      rounded-2xl
+      border
+      border-white/10
+      bg-white/[0.03]
+      p-4
+      text-left
+      no-underline
+      backdrop-blur-xl
+      transition-all
+      duration-300
+      hover:-translate-y-1
+      hover:border-purple-400/30
+      hover:bg-white/[0.06]
+      hover:shadow-[0_10px_40px_rgba(168,85,247,0.12)]
+    "
+  >
+    {/* Discord avatar */}
+    <div className="
+      grid
+      h-14
+      w-14
+      shrink-0
+      place-items-center
+      rounded-full
+      bg-gradient-to-br
+      from-indigo-500
+      to-purple-600
+      text-xl
+      font-black
+      text-white
+      shadow-lg
+      shadow-purple-500/20
+    ">
+      0
+    </div>
+
+    <div className="min-w-0">
+      <p className="mb-0 text-sm font-semibold text-white">
+        0akh
+      </p>
+
+      <p className="mb-0 text-xs text-white/40">
+        Discord
+      </p>
+    </div>
+
+    <span className="
+      ml-auto
+      text-lg
+      text-white/30
+      transition-all
+      duration-300
+      group-hover:translate-x-1
+      group-hover:text-purple-400
+    ">
+      ↗
+    </span>
+  </a>
+</motion.div>
+
               <motion.div
   initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
   whileInView={{
