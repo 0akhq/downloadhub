@@ -643,28 +643,34 @@ function App() {
         </div>
       </section>
 
-      <TextAnimate
-              animation="blurInUp"
-              by="word"
-              className="text-4xl font-bold md:text-5xl text-accent/80"
-            >
-              Popüler After Effect Pluginleri
-            </TextAnimate>
+      <section className="relative px-6 py-16">
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <TextAnimate
+            animation="blurInUp"
+            by="word"
+            className="text-4xl font-bold md:text-5xl text-accent/80"
+          >
+            Popüler After Effect Pluginleri
+          </TextAnimate>
 
-      <SoftwareCard
-                icon="Ae"
-                title="Sapphire Plugin"
-                version="Güncel Sürüm"
-                delay={1050}
-                url=""
-              />
-      <SoftwareCard
-                icon="Ae"
-                title="BCC Plugin"
-                version="Güncel Sürüm"
-                delay={1050}
-                url=""
-              />
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+            <SoftwareCard
+              icon="Ae"
+              title="Sapphire Plugin"
+              version="Güncel Sürüm"
+              delay={1050}
+              url=""
+            />
+            <SoftwareCard
+              icon="Ae"
+              title="BCC Plugin"
+              version="Güncel Sürüm"
+              delay={1100}
+              url=""
+            />
+          </div>
+        </div>
+      </section>
 
       <div className="relative z-50 mx-auto mt-12 flex w-full max-w-[350px] flex-col items-center">
         <h1 className="mb-4 text-2xl font-bold text-foreground">
