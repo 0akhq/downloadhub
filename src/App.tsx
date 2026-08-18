@@ -382,54 +382,6 @@ function App() {
     Yapımcı: 0akh
   </TextAnimate>
 </motion.div>
-<div className="relative z-50 mx-auto mt-12 flex w-full max-w-[350px] flex-col items-center">
-  <h1 className="mb-4 text-2xl font-bold text-foreground">
-    Discord Sunucumuz
-  </h1>
-
-  <iframe
-    src="https://discord.com/widget?id=1537188898936066118&theme=dark"
-    width="350"
-    height="500"
-    frameBorder="0"
-    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-    className="relative z-20 rounded-2xl border border-white/10 shadow-2xl"
-  />
-
-  <motion.a
-    href="https://discord.gg/NhXvKckdmN"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="
-      relative
-      mt-7
-      flex
-      w-full
-      items-center
-      justify-center
-      rounded-xl
-      bg-accent/5
-      px-4
-      py-3
-      text-sm
-      font-bold
-      text-accent
-      transition-all
-      duration-300
-      hover:bg-accent/10
-      hover-lift
-    "
-    whileHover={{
-      scale: 1.03,
-    }}
-    whileTap={{
-      scale: 0.98,
-    }}
-  >
-    Discord Sunucusuna Katıl ↗
-  </motion.a>
-</div>
-
       <section className="relative min-h-screen px-6 py-32">
 
         <motion.div
@@ -486,7 +438,7 @@ function App() {
               by="word"
               className="text-4xl font-bold md:text-5xl text-accent/80"
             >
-              Popüler yazılımlar
+              Popüler Programlar
             </TextAnimate>
 
             <p className="mt-4 max-w-xl text-muted-foreground">
@@ -691,77 +643,62 @@ function App() {
         </div>
       </section>
 
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-6">
+      <TextAnimate
+              animation="blurInUp"
+              by="word"
+              className="text-4xl font-bold md:text-5xl text-accent/80"
+            >
+              Popüler After Effect Pluginleri
+            </TextAnimate>
 
-        <motion.div
-          className="
-            absolute
-            h-[500px]
-            w-[500px]
-            rounded-full
-            bg-accent/5
-            blur-[150px]
-          "
-          style={{
-            transform: `translateY(${scrollY * -0.1}px)`,
-          }}
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 0.3,
-            transition: {
-              duration: 1.2,
-            },
-          }}
+      <div className="relative z-50 mx-auto mt-12 flex w-full max-w-[350px] flex-col items-center">
+        <h1 className="mb-4 text-2xl font-bold text-foreground">
+          Discord Sunucumuz
+        </h1>
+
+        <iframe
+          src="https://discord.com/widget?id=1537188898936066118&theme=dark"
+          width="350"
+          height="500"
+          frameBorder="0"
+          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+          className="relative z-20 rounded-2xl border border-white/10 shadow-2xl"
         />
 
-        <div className="relative z-10 text-center">
+        <motion.a
+          href="https://discord.gg/NhXvKckdmN"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="
+            relative
+            mt-7
+            flex
+            w-full
+            items-center
+            justify-center
+            rounded-xl
+            bg-accent/5
+            px-4
+            py-3
+            text-sm
+            font-bold
+            text-accent
+            transition-all
+            duration-300
+            hover:bg-accent/10
+            hover-lift
+          "
+          whileHover={{
+            scale: 1.03,
+          }}
+          whileTap={{
+            scale: 0.98,
+          }}
+        >
+          Discord Sunucusuna Katıl ↗
+        </motion.a>
+      </div>
 
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 30,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 0.8,
-                delay: 0.2,
-              },
-            }}
-          >
-            <TextAnimate
-              animation="scaleUp"
-              by="word"
-              className="text-5xl font-bold md:text-7xl text-accent"
-            >
-              Daha fazlası yakında.
-            </TextAnimate>
-          </motion.div>
-
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 0.8,
-                delay: 0.4,
-              },
-            }}
-          >
-            <p className="mx-auto mt-6 max-w-lg text-muted-foreground">
-              DownloadHub yeni yazılımlar ve araçlarla büyümeye devam ediyor.
-            </p>
-          </motion.div>
-
-        </div>
-      </section>
 
       <footer
         className="
