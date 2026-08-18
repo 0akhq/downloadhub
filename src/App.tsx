@@ -382,17 +382,20 @@ function App() {
     Yapımcı: 0akh
   </TextAnimate>
 </motion.div>
-<div>
-      <h1>Discord</h1>
+<div className="relative z-50 mx-auto mt-12 flex flex-col items-center">
+  <h1 className="mb-4 text-2xl font-bold text-foreground">
+    Discord Sunucumuz
+  </h1>
 
-      <iframe
-        src="https://discord.com/widget?id=1537188898936066118&theme=dark"
-        width="350"
-        height="500"
-        frameBorder="0"
-        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-      />
-    </div>
+  <iframe
+    src="https://discord.com/widget?id=1537188898936066118&theme=dark"
+    width="350"
+    height="500"
+    frameBorder="0"
+    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+    className="relative z-50 rounded-2xl border border-white/10 shadow-2xl"
+  />
+</div>
 
       <section className="relative min-h-screen px-6 py-32">
 
