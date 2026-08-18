@@ -651,6 +651,14 @@ function App() {
               Popüler After Effect Pluginleri
             </TextAnimate>
 
+      <SoftwareCard
+                icon="Ae"
+                title="Sapphire Plugin"
+                version="Güncel Sürüm"
+                delay={1050}
+                url="https://bzzhr.to/rb3bz0ujoe2z"
+              />
+
       <div className="relative z-50 mx-auto mt-12 flex w-full max-w-[350px] flex-col items-center">
         <h1 className="mb-4 text-2xl font-bold text-foreground">
           Discord Sunucumuz
