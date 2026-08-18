@@ -382,7 +382,7 @@ function App() {
     Yapımcı: 0akh
   </TextAnimate>
 </motion.div>
-<div className="relative z-50 mx-auto mt-12 flex flex-col items-center">
+<div className="relative z-50 mx-auto mt-12 flex w-full max-w-[350px] flex-col items-center">
   <h1 className="mb-4 text-2xl font-bold text-foreground">
     Discord Sunucumuz
   </h1>
@@ -396,38 +396,38 @@ function App() {
     className="relative z-20 rounded-2xl border border-white/10 shadow-2xl"
   />
 
-<motion.a
-        href="https://discord.gg/NhXvKckdmN"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="
-          relative
-          mt-7
-          flex
-          w-full
-          items-center
-          justify-center
-          rounded-xl
-          bg-accent/5
-          px-4
-          py-3
-          text-sm
-          font-bold
-          text-accent
-          transition-all
-          duration-300
-          hover:bg-accent/10
-          hover-lift
-        "
-        whileHover={{
-          scale: 1.03,
-        }}
-        whileTap={{
-          scale: 0.98,
-        }}
-      >
-        Discrd Sunucusuna Katıl ↗
-      </motion.a>
+  <motion.a
+    href="https://discord.gg/NhXvKckdmN"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      relative
+      mt-7
+      flex
+      w-full
+      items-center
+      justify-center
+      rounded-xl
+      bg-accent/5
+      px-4
+      py-3
+      text-sm
+      font-bold
+      text-accent
+      transition-all
+      duration-300
+      hover:bg-accent/10
+      hover-lift
+    "
+    whileHover={{
+      scale: 1.03,
+    }}
+    whileTap={{
+      scale: 0.98,
+    }}
+  >
+    Discord Sunucusuna Katıl ↗
+  </motion.a>
 </div>
 
       <section className="relative min-h-screen px-6 py-32">
