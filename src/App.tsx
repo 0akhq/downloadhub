@@ -406,9 +406,6 @@ function App() {
       items-center
       justify-center
       rounded-xl
-      bg-accent
-      px-6
-      py-3
       text-sm
       font-bold
       text-white
