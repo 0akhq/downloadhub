@@ -395,6 +395,31 @@ function App() {
     sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
     className="relative z-50 rounded-2xl border border-white/10 shadow-2xl"
   />
+
+  <a
+    href="https://discord.gg/NhXvKckdmN"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      mt-4
+      inline-flex
+      items-center
+      justify-center
+      rounded-xl
+      bg-accent
+      px-6
+      py-3
+      text-sm
+      font-bold
+      text-white
+      transition-all
+      duration-300
+      hover:scale-105
+      hover:opacity-90
+    "
+  >
+    Discord Sunucusuna Katıl ↗
+  </a>
 </div>
 
       <section className="relative min-h-screen px-6 py-32">
