@@ -164,7 +164,6 @@ function App() {
             }}
           />
         </div>
-        <div><iframe src="https://discord.com/widget?id=1537188898936066118&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe></div>
 
         <motion.div
           className="relative z-10 mx-auto max-w-4xl px-6 text-center"
@@ -383,6 +382,17 @@ function App() {
     Yapımcı: 0akh
   </TextAnimate>
 </motion.div>
+<div>
+      <h1>Discord</h1>
+
+      <iframe
+        src="https://discord.com/widget?id=1537188898936066118&theme=dark"
+        width="350"
+        height="500"
+        frameBorder="0"
+        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+      />
+    </div>
 
       <section className="relative min-h-screen px-6 py-32">
 
