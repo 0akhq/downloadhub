@@ -396,30 +396,38 @@ function App() {
     className="relative z-20 rounded-2xl border border-white/10 shadow-2xl"
   />
 
-  <a
-    href="https://discord.gg/NhXvKckdmN"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="
-      mt-4
-      inline-flex
-      items-center
-      justify-center
-      rounded-xl
-      bg-accent
-      px-6
-      py-3
-      text-sm
-      font-bold
-      text-white
-      transition-all
-      duration-300
-      hover:scale-105
-      hover:opacity-0
-    "
-  >
-    Discord Sunucusuna Katıl ↗
-  </a>
+<motion.a
+        href="https://discord.gg/NhXvKckdmN"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="
+          relative
+          mt-7
+          flex
+          w-full
+          items-center
+          justify-center
+          rounded-xl
+          bg-accent/5
+          px-4
+          py-3
+          text-sm
+          font-bold
+          text-accent
+          transition-all
+          duration-300
+          hover:bg-accent/10
+          hover-lift
+        "
+        whileHover={{
+          scale: 1.03,
+        }}
+        whileTap={{
+          scale: 0.98,
+        }}
+      >
+        Discrd Sunucusuna Katıl ↗
+      </motion.a>
 </div>
 
       <section className="relative min-h-screen px-6 py-32">
