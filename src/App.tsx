@@ -23,7 +23,6 @@ function App() {
     }
   }, [])
 
-  // Motion values for scroll-based animations
   const { scrollYProgress } = useViewportScroll()
 
   const heroFade = useTransform(
@@ -38,7 +37,6 @@ function App() {
     [0, 100]
   )
 
-  // Spring values for floating animations
   const floatY = useSpring(0, {
     stiffness: 80,
     damping: 20,
@@ -49,7 +47,6 @@ function App() {
     damping: 20,
   })
 
-  // Scaled floating values
   const floatYHalf = useTransform(
     floatY,
     (value) => value * 0.5
@@ -70,7 +67,6 @@ function App() {
     (value) => value * 0.2
   )
 
-  // Trigger float animations on mount
   useEffect(() => {
     floatY.set(-10)
     floatX.set(5)
@@ -79,7 +75,6 @@ function App() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-background text-foreground transition-colors relative overflow-hidden">
 
-      {/* Animated background gradients */}
       <div className="absolute inset-0 -z-50 pointer-events-none">
         <motion.div
           className="absolute inset-0"
@@ -109,13 +104,10 @@ function App() {
 
       <DownloadBackground />
 
-      {/* HERO */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16 pb-24">
 
-        {/* Animated background blobs */}
         <div className="pointer-events-none absolute inset-0 -z-10">
 
-          {/* Main blob */}
           <motion.div
             className="
               absolute
@@ -136,7 +128,6 @@ function App() {
             }}
           />
 
-          {/* Left blob */}
           <motion.div
             className="
               absolute
@@ -155,7 +146,6 @@ function App() {
             }}
           />
 
-          {/* Right blob */}
           <motion.div
             className="
               absolute
@@ -174,8 +164,8 @@ function App() {
             }}
           />
         </div>
+        <div><iframe src="https://discord.com/widget?id=1537188898936066118&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe></div>
 
-        {/* Hero content */}
         <motion.div
           className="relative z-10 mx-auto max-w-4xl px-6 text-center"
           initial={{
@@ -394,10 +384,8 @@ function App() {
   </TextAnimate>
 </motion.div>
 
-      {/* PROGRAMLAR */}
       <section className="relative min-h-screen px-6 py-32">
 
-        {/* Animated background text */}
         <motion.div
           className="
             pointer-events-none
@@ -657,7 +645,6 @@ function App() {
         </div>
       </section>
 
-      {/* ALT BÖLÜM */}
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-6">
 
         <motion.div
@@ -730,7 +717,6 @@ function App() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer
         className="
           border-t
@@ -823,7 +809,6 @@ function SoftwareCard({
       "
     >
 
-      {/* Animated glow effect */}
       <div
         className="
           absolute
@@ -852,7 +837,6 @@ function SoftwareCard({
         />
       </div>
 
-      {/* Icon */}
       <motion.div
         className="
           relative
@@ -877,17 +861,14 @@ function SoftwareCard({
         {icon}
       </motion.div>
 
-      {/* Title */}
       <h3 className="relative mt-6 text-xl font-bold text-foreground">
         {title}
       </h3>
 
-      {/* Version */}
       <p className="relative mt-2 text-sm text-muted-foreground">
         {version}
       </p>
 
-      {/* Link */}
       <motion.a
         href={url}
         target="_blank"
