@@ -656,7 +656,14 @@ function App() {
                 title="Sapphire Plugin"
                 version="Güncel Sürüm"
                 delay={1050}
-                url="https://bzzhr.to/rb3bz0ujoe2z"
+                url=""
+              />
+      <SoftwareCard
+                icon="Ae"
+                title="BCC Plugin"
+                version="Güncel Sürüm"
+                delay={1050}
+                url=""
               />
 
       <div className="relative z-50 mx-auto mt-12 flex w-full max-w-[350px] flex-col items-center">
