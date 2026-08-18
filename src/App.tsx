@@ -393,7 +393,7 @@ function App() {
     height="500"
     frameBorder="0"
     sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-    className="relative z-50 rounded-2xl border border-white/10 shadow-2xl"
+    className="relative z-20 rounded-2xl border border-white/10 shadow-2xl"
   />
 
   <a
@@ -406,13 +406,16 @@ function App() {
       items-center
       justify-center
       rounded-xl
+      bg-accent
+      px-6
+      py-3
       text-sm
       font-bold
       text-white
       transition-all
       duration-300
       hover:scale-105
-      hover:opacity-90
+      hover:opacity-0
     "
   >
     Discord Sunucusuna Katıl ↗
