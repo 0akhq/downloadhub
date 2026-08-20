@@ -64,7 +64,7 @@ function Navbar({
       className={`
         fixed top-0 inset-x-0 z-50
         flex items-center justify-between
-        px-6 h-16
+        px-6 h-20
         transition-all duration-300
         ${scrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-white/5 shadow-[0_1px_30px_rgba(0,0,0,0.3)]"
@@ -91,13 +91,13 @@ function Navbar({
         </span>
       </button>
 
-      <div className="hidden sm:flex items-center gap-1">
+      <div className="hidden sm:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
         {NAV_ITEMS.map((item) => (
           <button
             key={item.id}
             onClick={() => onNavigate(item.id)}
             className={`
-              relative px-4 py-1.5 rounded-full text-sm font-medium
+              relative px-5 py-2.5 rounded-full text-base font-medium
               transition-all duration-200
               ${current === item.id
                 ? "text-foreground"
@@ -108,7 +108,12 @@ function Navbar({
             {current === item.id && (
               <motion.span
                 layoutId="nav-pill"
-                className="absolute inset-0 rounded-full bg-white/8 border border-white/10"
+                className="
+                  absolute inset-0 rounded-full
+                  bg-white/[0.08]
+                  border border-white/[0.12]
+                  shadow-[0_0_20px_rgba(255,255,255,0.04)]
+                "
                 transition={{ type: "spring", stiffness: 350, damping: 30 }}
               />
             )}
@@ -620,7 +625,7 @@ function Footer() {
 
         {/* Alt bilgi */}
         <div className="flex flex-col items-center gap-2 text-xs text-white/30">
-          <p>© 2026 DownloadHub</p>
+          <p>© 2026 Argo Studios</p>
           <p>Hızlı • Sade • Modern</p>
         </div>
 
