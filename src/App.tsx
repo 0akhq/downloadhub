@@ -177,7 +177,6 @@ function Navbar({
   function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
     return (
       <motion.div key="home" {...pageVariants} className="min-h-screen">
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-[#050505]" />
 
       <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-24 pb-16 text-center">
         <motion.div
@@ -563,11 +562,11 @@ function App() {
   }
 
   return (
-    <StarsBackground 
-      starColor="#9b5de5"
-      speed={100}
-      factor={0.05}
-      className="min-h-screen overflow-x-hidden text-foreground"
+    <StarsBackground
+      starColor="#ffffff"
+      speed={60}
+      factor={0.035}
+      className="relative min-h-screen overflow-x-hidden bg-[#050505] text-foreground"
     >
       <Navbar current={page} onNavigate={navigate} />
 
