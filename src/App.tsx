@@ -3,40 +3,11 @@ import { TextAnimate } from "@/components/ui/text-animate"
 import {
   motion,
   AnimatePresence,
-  useSpring,
-  useTransform,
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
 
 
 type Page = "home" | "programs" | "plugins" | "discord"
-
-// ─── Mouse Tracking Hook ──────────────────────────────────────────────────────
-
-function useMousePosition() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    let animationId: number
-
-    const handleMouseMove = (e: MouseEvent) => {
-      cancelAnimationFrame(animationId)
-      animationId = requestAnimationFrame(() => {
-        setMousePosition({ x: e.clientX, y: e.clientY })
-      })
-    }
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true })
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      cancelAnimationFrame(animationId)
-    }
-  }, [])
-
-  return mousePosition
-}
-
-// ─── Page transition variants ─────────────────────────────────────────────────
 
 const pageVariants = {
   initial: { opacity: 0, y: 16, filter: "blur(6px)" },
@@ -203,49 +174,10 @@ function Navbar({
   )
 }
 
-// ─── Home Page with Mouse Tracking ────────────────────────────────────────────
-
-function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
-  const mousePos = useMousePosition()
-  const floatY = useSpring(0, { stiffness: 80, damping: 20 })
-  const floatX = useSpring(0, { stiffness: 60, damping: 20 })
-  const floatYHalf = useTransform(floatY, (v) => v * 0.5)
-  const floatXThird = useTransform(floatX, (v) => v * 0.3)
-  const floatYThird = useTransform(floatY, (v) => v * 0.3)
-  const floatXFifth = useTransform(floatX, (v) => v * 0.2)
-
-  useEffect(() => {
-    const centerX = typeof window !== "undefined" ? window.innerWidth / 2 : 0
-    const centerY = typeof window !== "undefined" ? window.innerHeight / 2 : 0
-
-    const distX = (mousePos.x - centerX) * 0.05
-    const distY = (mousePos.y - centerY) * 0.05
-
-    floatX.set(distX)
-    floatY.set(distY)
-  }, [mousePos, floatX, floatY])
-
-  return (
-    <motion.div key="home" {...pageVariants} className="min-h-screen">
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        {/* Ana gradient blob - mouse tracking */}
-        <motion.div
-          className="absolute left-1/2 top-[-250px] h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-600/8 blur-[100px]"
-          style={{ x: floatX }}
-        />
-        
-        {/* İkinci blob - reduced opacity */}
-        <motion.div
-          className="absolute left-[5%] top-[40%] h-[300px] w-[300px] rounded-full bg-purple-600/3 blur-[100px]"
-          style={{ y: floatYHalf, x: floatXThird }}
-        />
-        
-        {/* Üçüncü blob - reduced opacity */}
-        <motion.div
-          className="absolute right-[5%] top-[55%] h-[250px] w-[250px] rounded-full bg-indigo-500/3 blur-[100px]"
-          style={{ y: floatYThird, x: floatXFifth }}
-        />
-      </div>
+  function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
+    return (
+      <motion.div key="home" {...pageVariants} className="min-h-screen">
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[#050505]" />
 
       <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-24 pb-16 text-center">
         <motion.div
@@ -257,8 +189,8 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
             animation="blurInUp"
             by="word"
             className="
-              mb-6 inline-flex rounded-full border border-violet-400/20
-              bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-300
+              mb-6 inline-flex rounded-full border border-white/10
+              bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/70
             "
           >
             ✦ Hızlı • Sade • Modern
@@ -266,8 +198,8 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
 
           <motion.h1
             className="
-              text-5xl font-bold tracking-[-0.05em] sm:text-6xl md:text-7xl
-              bg-clip-text text-transparent bg-gradient-to-r from-accent to-primary
+              text-5xl font-bold tracking-[-0.05em] text-white
+              sm:text-6xl md:text-7xl
             "
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.4 } }}
@@ -276,7 +208,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
           </motion.h1>
 
           <motion.h1
-            className="mt-2 text-5xl font-bold tracking-[-0.05em] text-accent sm:text-6xl md:text-7xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } }}
           >
@@ -292,10 +223,9 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
               onClick={() => onNavigate("programs")}
               className="
                 px-7 py-3 rounded-xl font-semibold text-sm
-                bg-accent text-background
-                hover:opacity-90 hover:-translate-y-0.5
+                bg-white text-black
+                hover:bg-white/90 hover:-translate-y-0.5
                 transition-all duration-200
-                shadow-[0_0_20px_rgba(139,92,246,0.2)]
               "
             >
               Programlara Bak →
@@ -304,8 +234,8 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
               onClick={() => onNavigate("discord")}
               className="
                 px-7 py-3 rounded-xl font-semibold text-sm
-                border border-white/10 bg-white/5
-                hover:bg-white/10 hover:-translate-y-0.5
+                bg-white text-black
+                hover:bg-white/90 hover:-translate-y-0.5
                 transition-all duration-200
               "
             >
@@ -357,9 +287,7 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
             by="character"
             className="
               text-4xl sm:text-5xl font-black tracking-[-0.05em]
-              bg-gradient-to-r from-pink-400 via-purple-400 via-blue-400 to-cyan-400
-              bg-[length:200%_auto] bg-clip-text text-transparent
-              animate-gradient-x
+              text-white/20
             "
           >
             Yapımcı: 0akh
@@ -654,5 +582,4 @@ function App() {
     </StarsBackground>
   )
 }
-
 export default App
