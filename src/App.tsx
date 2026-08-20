@@ -6,7 +6,7 @@ import {
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
 import { HeroVideoDialog } from "./components/ui/hero-video-dialog"
-import { Download } from "lucide-react"
+import { ShoppingCart } from "lucide-react"
 
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
@@ -454,9 +454,9 @@ function CCPage() {
                   </button>
                   <button
                     onClick={(e) => e.stopPropagation()}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/40 transition-colors hover:border-accent/30 hover:text-accent"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/40 transition-colors hover:border-accent/30 hover:text-accent text-base"
                   >
-                    <Download className="size-4" />
+                    <ShoppingCart className="size-4" />
                   </button>
                 </div>
               </div>
@@ -507,10 +507,15 @@ function CCPage() {
                   <h2 className="text-base font-bold text-white">{selected.title}</h2>
                   <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">CC</span>
                 </div>
-                <button className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2 text-sm font-semibold text-accent transition-colors">
-                  <Download className="size-4" />
-                  İndir
-                </button>
+                <a
+                href="https://www.itemsatis.com/video-edit-hizmeti/after-effects-ultra-gercekci-cc-5680942.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2 text-sm font-semibold text-accent transition-colors"
+              >
+                <Download className="size-4" />
+                🛒 Satın al
+              </a>
               </div>
             </motion.div>
           </motion.div>
