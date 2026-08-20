@@ -94,8 +94,8 @@ export function SmoothCursor({
     mass: 1,
     restDelta: 0.001,
   },
-  trailLength = 0,
-  trailSpacing = 0,
+  trailLength = 3,
+  trailSpacing = 20,
 }: SmoothCursorProps) {
   const lastMousePos = useRef<Position>({ x: 0, y: 0 })
   const velocity = useRef<Position>({ x: 0, y: 0 })
