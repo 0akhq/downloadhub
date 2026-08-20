@@ -5,6 +5,7 @@ import {
   AnimatePresence,
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
+import { HeroVideoDialog } from "@/components/ui/hero-video-dialog"
 
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
@@ -391,15 +392,15 @@ function PluginsPage() {
 
 const CCS = [
   {
-    icon: "CC",
     title: "Argo Main CC",
-    version: "Argo Studios • Güncel Sürüm",
-    url: "Yakında",
-  },
+    description: "Argo Main CC renk düzenlemesinin görünümü.",
+    videoSrc: "",
+    thumbnailSrc: "/cc/argo-main-cc.png",
+  }
 ]
 
 function CCPage() {
-  return (  
+  return (
     <motion.div
       key="ccs"
       {...pageVariants}
@@ -415,30 +416,61 @@ function CCPage() {
         </TextAnimate>
 
         <p className="mt-4 max-w-xl text-muted-foreground">
-          Editlerin için hazırlanan renk ayarları ve CC paketleri.
+          Editlerinde kullanabileceğin renk düzenlemeleri.
         </p>
 
-        <motion.div
-          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.03,
-                delayChildren: 0.1,
-              },
-            },
-          }}
-        >
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CCS.map((cc) => (
-            <SoftwareCard
+            <motion.article
               key={cc.title}
-              {...cc}
-              delay={0}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              whileHover={{ y: -5 }}
+              className="
+                overflow-hidden rounded-3xl
+                border border-white/10
+                bg-white/[0.03]
+                backdrop-blur-lg
+                transition-all duration-300
+                hover:border-accent/30
+                hover:bg-white/[0.05]
+              "
+            >
+              <div className="p-3">
+                <HeroVideoDialog
+                  animationStyle="from-center"
+                  videoSrc={cc.videoSrc}
+                  thumbnailSrc={cc.thumbnailSrc}
+                  thumbnailAlt={cc.title}
+                />
+              </div>
+
+              <div className="px-5 pb-5">
+                <h3 className="text-lg font-bold text-white">
+                  {cc.title}
+                </h3>
+
+                <p className="mt-2 text-sm text-white/40">
+                  {cc.description}
+                </p>
+
+                <button
+                  className="
+                    mt-5 w-full rounded-xl
+                    bg-accent/10
+                    px-4 py-3
+                    text-sm font-bold text-accent
+                    transition-all duration-300
+                    hover:bg-accent/20
+                  "
+                >
+                  CC'yi İncele ↓
+                </button>
+              </div>
+            </motion.article>
           ))}
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   )
