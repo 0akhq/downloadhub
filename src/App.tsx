@@ -5,7 +5,6 @@ import {
   AnimatePresence,
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
-import { HeroVideoDialog } from "@/components/ui/hero-video-dialog"
 
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
@@ -396,7 +395,7 @@ const CCS = [
     description: "Argo Main CC renk düzenlemesinin görünümü.",
     videoSrc: "",
     thumbnailSrc: "/cc/argo-main-cc.png",
-  }
+  },
 ]
 
 function CCPage() {
@@ -438,11 +437,10 @@ function CCPage() {
               "
             >
               <div className="p-3">
-                <HeroVideoDialog
-                  animationStyle="from-center"
-                  videoSrc={cc.videoSrc}
-                  thumbnailSrc={cc.thumbnailSrc}
-                  thumbnailAlt={cc.title}
+                <img
+                  src={cc.thumbnailSrc}
+                  alt={cc.title}
+                  className="w-full h-48 object-cover rounded-2xl"
                 />
               </div>
 
