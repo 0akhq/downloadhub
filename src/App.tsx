@@ -640,7 +640,7 @@ function App() {
   return (
     <StarsBackground
       starColor="#ffffff"
-      speed={60}
+      speed={10}
       factor={0.035}
       className="relative min-h-screen overflow-x-hidden bg-[#050505] text-foreground"
     >
