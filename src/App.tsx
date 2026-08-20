@@ -705,7 +705,7 @@ function App() {
         <div className="relative z-10 mx-auto max-w-6xl">
           <SoftwareCard
             icon="Ae"
-            title="ArgoLuzy CC"
+            title="Argo Main CC"
             version="Güncel"
             delay={1000}
             url=""
