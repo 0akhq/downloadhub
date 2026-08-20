@@ -6,6 +6,7 @@ import {
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
 import { HeroVideoDialog } from "./components/ui/hero-video-dialog"
+import { Download } from "lucide-react"
 
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
@@ -419,54 +420,51 @@ function CCPage() {
           Editlerinde kullanabileceğin renk düzenlemeleri.
         </p>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CCS.map((cc) => (
             <motion.article
               key={cc.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              whileHover={{ y: -5 }}
-              className="
-                overflow-hidden rounded-3xl
-                border border-white/10
-                bg-white/[0.03]
-                backdrop-blur-lg
-                transition-all duration-300
-                hover:border-accent/30
-                hover:bg-white/[0.05]
-              "
+              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-1"
             >
-              <div className="p-3">
+              {/* Thumbnail + Video */}
+              <div className="p-3 pb-0">
                 <HeroVideoDialog
                   animationStyle="from-center"
                   videoSrc={cc.videoSrc}
                   thumbnailSrc={cc.thumbnailSrc}
                   thumbnailAlt={cc.title}
+                  className="rounded-xl overflow-hidden"
                 />
               </div>
 
-              <div className="px-5 pb-5">
-                <h3 className="text-lg font-bold text-white">
-                  {cc.title}
-                </h3>
+              {/* Kart içeriği */}
+              <div className="px-4 pb-4 pt-3">
+                {/* Başlık + badge */}
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-semibold text-white">
+                    {cc.title}
+                  </h3>
+                  <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
+                    CC
+                  </span>
+                </div>
 
-                <p className="mt-2 text-sm text-white/40">
+                <p className="mt-1.5 text-xs leading-relaxed text-white/40">
                   {cc.description}
                 </p>
 
-                <button
-                  className="
-                    mt-5 w-full rounded-xl
-                    bg-accent/10
-                    px-4 py-3
-                    text-sm font-bold text-accent
-                    transition-all duration-300
-                    hover:bg-accent/20
-                  "
-                >
-                  CC'yi İncele ↓
-                </button>
+                {/* Butonlar */}
+                <div className="mt-4 flex gap-2">
+                  <button className="flex-1 rounded-lg bg-accent/10 px-3 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/20">
+                    CC'yi İncele
+                  </button>
+                  <button className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-accent/30 hover:text-accent">
+                    <Download className="size-3.5" />
+                  </button>
+                </div>
               </div>
             </motion.article>
           ))}
