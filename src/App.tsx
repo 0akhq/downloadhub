@@ -701,6 +701,18 @@ function App() {
         </div>
       </section>
 
+      <section className="relative px-6 py-16">
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <SoftwareCard
+            icon="Ae"
+            title="ArgoLuzy CC"
+            version="Güncel"
+            delay={1000}
+            url=""
+            />
+        </div>
+      </section>
+
       <div className="relative z-50 mx-auto mt-12 flex w-full max-w-[350px] flex-col items-center">
         <h1 className="mb-4 text-2xl font-bold text-foreground">
           Discord Sunucumuz
