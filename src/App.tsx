@@ -668,6 +668,13 @@ function App() {
               delay={1100}
               url=""
             />
+            <SoftwareCard
+              icon="Ae"
+              title="Flow"
+              version="Güncel Sürüm"
+              delay={1100}
+              url=""
+            />
           </div>
         </div>
       </section>
