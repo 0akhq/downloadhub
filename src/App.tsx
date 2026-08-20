@@ -684,10 +684,17 @@ function App() {
             />
             <SoftwareCard
               icon="Ae"
-              title="RSMB Plugin"
+              title="Twitch Plugin"
               version="Güncel Sürüm"
               delay={1100}
-              url=""
+              url="https://dosya.co/ap2s81776yvq/Twitch.zip.html"
+            />
+            <SoftwareCard
+              icon="Ae"
+              title="Twixtor Plugin"
+              version="Güncel Sürüm"
+              delay={1100}
+              url="https://dosya.co/fh47w33pvmrz/Twixtor.zip.html"
             />
           </div>
         </div>
