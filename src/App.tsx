@@ -5,7 +5,7 @@ import {
   AnimatePresence,
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
-import { HeroVideoDialog } from "@/components/ui/hero-video-dialog"
+import { HeroVideoDialog } from "./components/ui/hero-video-dialog"
 
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
