@@ -7,6 +7,7 @@ import {
   useSpring,
 } from "motion/react"
 import { DownloadBackground } from "@/components/ui/download-background"
+import { SmoothCursor } from "@/components/ui/smooth-cursor"
 
 function App() {
   const [scrollY, setScrollY] = useState(0)
@@ -73,6 +74,7 @@ function App() {
   }, [floatY, floatX])
 
   return (
+    <SmoothCursor />
     <main className="min-h-screen overflow-x-hidden bg-background text-foreground transition-colors relative overflow-hidden">
 
       <div className="absolute inset-0 -z-50 pointer-events-none">
