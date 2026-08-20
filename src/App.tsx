@@ -670,7 +670,21 @@ function App() {
             />
             <SoftwareCard
               icon="Ae"
-              title="Flow"
+              title="Flow Plugin"
+              version="Güncel Sürüm"
+              delay={1100}
+              url=""
+            />
+            <SoftwareCard
+              icon="Ae"
+              title="RSMB Plugin"
+              version="Güncel Sürüm"
+              delay={1100}
+              url=""
+            />
+            <SoftwareCard
+              icon="Ae"
+              title="RSMB Plugin"
               version="Güncel Sürüm"
               delay={1100}
               url=""
