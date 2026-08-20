@@ -11,7 +11,6 @@ import { DownloadBackground } from "@/components/ui/download-background"
 
 type Page = "home" | "programs" | "plugins" | "discord"
 
-// ─── Mouse Tracking Hook ──────────────────────────────────────────────────────
 
 function useMousePosition() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -35,8 +34,6 @@ function useMousePosition() {
 
   return mousePosition
 }
-
-// ─── Page transition variants ─────────────────────────────────────────────────
 
 const pageVariants = {
   initial: { opacity: 0, y: 16, filter: "blur(6px)" },
@@ -112,7 +109,7 @@ function Navbar({
           transition-transform duration-300
           group-hover:rotate-6 group-hover:scale-110
         ">
-          D
+          A
         </div>
         <span className="font-bold text-foreground tracking-tight">
           Argo <span className="text-accent">Studios</span>
@@ -203,8 +200,6 @@ function Navbar({
   )
 }
 
-// ─── Home Page with Mouse Tracking ────────────────────────────────────────────
-
 function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
   const mousePos = useMousePosition()
   const floatY = useSpring(0, { stiffness: 80, damping: 20 })
@@ -228,19 +223,16 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
   return (
     <motion.div key="home" {...pageVariants} className="min-h-screen">
       <div className="pointer-events-none fixed inset-0 -z-10">
-        {/* Ana gradient blob - mouse tracking */}
         <motion.div
           className="absolute left-1/2 top-[-250px] h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-600/8 blur-[100px]"
           style={{ x: floatX }}
         />
         
-        {/* İkinci blob - reduced opacity */}
         <motion.div
           className="absolute left-[5%] top-[40%] h-[300px] w-[300px] rounded-full bg-purple-600/3 blur-[100px]"
           style={{ y: floatYHalf, x: floatXThird }}
         />
         
-        {/* Üçüncü blob - reduced opacity */}
         <motion.div
           className="absolute right-[5%] top-[55%] h-[250px] w-[250px] rounded-full bg-indigo-500/3 blur-[100px]"
           style={{ y: floatYThird, x: floatXFifth }}
@@ -649,4 +641,4 @@ function App() {
   )
 }
 
-export default App
+export default Apps
