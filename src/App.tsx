@@ -109,10 +109,10 @@ function Navbar({
           transition-transform duration-300
           group-hover:rotate-6 group-hover:scale-110
         ">
-          D
+          A
         </div>
         <span className="font-bold text-foreground tracking-tight">
-          Download<span className="text-accent">Hub</span>
+          Argo<span className="text-accent">Studios</span>
         </span>
       </button>
 
