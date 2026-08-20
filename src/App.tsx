@@ -396,82 +396,70 @@ const CCS = [
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
     videoSrc: "https://youtube.com/embed/VIDEO_ID",
-    thumbnailSrc: "/cc/argo-main-cc.png",
+    thumbnailSrc: "https://i.imgur.com/f7OZEtQ.jpeg",
   },
 ]
 
 function CCPage() {
-  const [selectedCC, setSelectedCC] = useState<null | typeof CCS[0]>(null)
+  const [selected, setSelected] = useState<typeof CCS[0] | null>(null)
 
   return (
-    <motion.div
-      key="ccs"
-      {...pageVariants}
-      className="min-h-screen pt-24 pb-16 px-6"
-    >
+    <motion.div key="ccs" {...pageVariants} className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-6xl">
-        <TextAnimate
-          animation="blurInUp"
-          by="word"
-          className="text-4xl font-bold md:text-5xl text-accent/80"
-        >
+        <TextAnimate animation="blurInUp" by="word" className="text-4xl font-bold md:text-5xl text-accent/80">
           Color Corrections
         </TextAnimate>
-
         <p className="mt-4 max-w-xl text-muted-foreground">
           Editlerinde kullanabileceğin renk düzenlemeleri.
         </p>
 
-        {/* Kart Grid */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Kartlar — col-span 2 ile büyük */}
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {CCS.map((cc) => (
             <motion.article
               key={cc.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-1 cursor-pointer"
-              onClick={() => setSelectedCC(cc)}
+              onClick={() => setSelected(cc)}
+              className="group cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-1"
             >
-              {/* Thumbnail */}
-              <div className="relative aspect-video w-full overflow-hidden bg-white/5">
+              {/* Thumbnail — çok daha büyük */}
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
                 <img
                   src={cc.thumbnailSrc}
                   alt={cc.title}
-                  className="h-full w-full object-cover"
-                  onError={(e) => {
-                    // Fallback: fotoğraf yüklenemezse placeholder göster
-                    e.currentTarget.style.display = 'none'
-                  }}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                {/* Play butonu overlay */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="h-14 w-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
-                    <svg className="h-6 w-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
+                {/* Play overlay */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="h-16 w-16 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                    <svg className="h-7 w-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
                     </svg>
                   </div>
                 </div>
               </div>
 
-              {/* İçerik */}
-              <div className="px-4 pb-4 pt-3">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-white">{cc.title}</h3>
-                  <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
-                    CC
-                  </span>
+              {/* Alt bilgi */}
+              <div className="px-5 pb-5 pt-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-base font-bold text-white">{cc.title}</h3>
+                  <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">CC</span>
                 </div>
-                <p className="mt-1.5 text-xs leading-relaxed text-white/40">{cc.description}</p>
-                <div className="mt-4 flex gap-2">
+                <p className="text-xs text-white/40 mb-4">{cc.description}</p>
+                <div className="flex gap-2">
                   <button
-                    onClick={(e) => { e.stopPropagation(); setSelectedCC(cc) }}
-                    className="flex-1 rounded-lg bg-accent/10 px-3 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
+                    onClick={(e) => { e.stopPropagation(); setSelected(cc) }}
+                    className="flex-1 rounded-xl bg-accent/10 px-4 py-2.5 text-sm font-semibold text-accent transition-colors hover:bg-accent/20"
                   >
-                    CC'yi İncele
+                    CC'yi İncele ▶
                   </button>
-                  <button className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-accent/30 hover:text-accent">
-                    <Download className="size-3.5" />
+                  <button
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/40 transition-colors hover:border-accent/30 hover:text-accent"
+                  >
+                    <Download className="size-4" />
                   </button>
                 </div>
               </div>
@@ -480,56 +468,53 @@ function CCPage() {
         </div>
       </div>
 
-      {/* Büyük Modal */}
+      {/* Lightbox Modal */}
       <AnimatePresence>
-        {selectedCC && (
+        {selected && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
-            onClick={() => setSelectedCC(null)}
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
+            onClick={() => setSelected(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              initial={{ opacity: 0, scale: 0.9, y: 24 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 20 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-4xl rounded-3xl border border-white/10 bg-[#0a0a0a] overflow-hidden shadow-2xl"
+              exit={{ opacity: 0, scale: 0.9, y: 24 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full max-w-5xl rounded-3xl border border-white/10 bg-[#0c0c0c] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Kapat butonu */}
+              {/* Kapat */}
               <button
-                onClick={() => setSelectedCC(null)}
-                className="absolute top-4 right-4 z-10 h-9 w-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all duration-200"
+                onClick={() => setSelected(null)}
+                className="absolute top-4 right-4 z-10 h-9 w-9 rounded-full bg-black/60 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all"
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
                 </svg>
               </button>
 
-              {/* Video / Thumbnail büyük alan */}
-              <div className="relative aspect-video w-full bg-black">
+              {/* Video büyük alan */}
+              <div className="relative w-full bg-black" style={{ aspectRatio: "16/9" }}>
                 <HeroVideoDialog
                   animationStyle="from-center"
-                  videoSrc={selectedCC.videoSrc}
-                  thumbnailSrc={selectedCC.thumbnailSrc}
-                  thumbnailAlt={selectedCC.title}
+                  videoSrc={selected.videoSrc}
+                  thumbnailSrc={selected.thumbnailSrc}
+                  thumbnailAlt={selected.title}
                   className="absolute inset-0 h-full w-full [&_img]:h-full [&_img]:w-full [&_img]:rounded-none [&_img]:object-cover [&_img]:border-0 [&_img]:shadow-none"
                 />
               </div>
 
-              {/* Alt bilgi */}
-              <div className="px-6 py-5 flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h2 className="text-lg font-bold text-white">{selectedCC.title}</h2>
-                    <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">CC</span>
-                  </div>
-                  <p className="text-sm text-white/40">{selectedCC.description}</p>
+              {/* Alt bar */}
+              <div className="flex items-center justify-between px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-base font-bold text-white">{selected.title}</h2>
+                  <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">CC</span>
                 </div>
-                <button className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2.5 text-sm font-medium text-accent transition-colors">
+                <button className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2 text-sm font-semibold text-accent transition-colors">
                   <Download className="size-4" />
                   İndir
                 </button>
