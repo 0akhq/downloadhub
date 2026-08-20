@@ -5,7 +5,7 @@ import {
   AnimatePresence,
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
-import argoCCImage from "@/cc/argo-main-cc.png"
+import { HeroVideoDialog } from "@/components/ui/hero-video-dialog"
 
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
@@ -394,8 +394,8 @@ const CCS = [
   {
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
-    videoSrc: "",
-    thumbnailSrc: argoCCImage,
+    videoSrc: "https://youtube.com/embed/VIDEO_ID",  // Youtube video ID
+    thumbnailSrc: "https://argostudios.vercel.app/ccphotos/argo-main-cc.png",
   },
 ]
 
@@ -438,10 +438,11 @@ function CCPage() {
               "
             >
               <div className="p-3">
-                <img
-                  src={cc.thumbnailSrc}
-                  alt={cc.title}
-                  className="w-full h-48 object-cover rounded-2xl"
+                <HeroVideoDialog
+                  animationStyle="from-center"
+                  videoSrc={cc.videoSrc}
+                  thumbnailSrc={cc.thumbnailSrc}
+                  thumbnailAlt={cc.title}
                 />
               </div>
 
