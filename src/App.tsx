@@ -513,7 +513,7 @@ function CCPage() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2 text-sm font-semibold text-accent transition-colors"
               >
-                <Download className="size-4" />
+                <ShoppingCart className="size-4" />
                 🛒 Satın al
               </a>
               </div>
