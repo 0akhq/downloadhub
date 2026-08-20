@@ -83,10 +83,10 @@ function Navbar({
           transition-transform duration-300
           group-hover:rotate-6 group-hover:scale-110
         ">
-          D
+          A
         </div>
         <span className="font-bold text-foreground tracking-tight">
-          Download<span className="text-accent">Hub</span>
+          Argo<span className="text-accent">Studios</span>
         </span>
       </button>
 
@@ -241,56 +241,6 @@ function Navbar({
               Discord ↗
             </button>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 25, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 1 } }}
-          className="mt-16 max-w-sm w-full"
-        >
-          <a
-            href="https://discord.com/users/709426260497137785"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              group flex items-center gap-4 rounded-2xl border border-white/10
-              bg-white/[0.03] p-4 text-left no-underline backdrop-blur-xl
-              transition-all duration-300 hover:-translate-y-1
-              hover:border-purple-400/30 hover:bg-white/[0.06]
-            "
-          >
-            <img
-              src="https://i.pinimg.com/1200x/31/a5/27/31a5279811c56a9d3da2c517036c4d82.jpg"
-              alt="0akh"
-              className="
-                h-14 w-14 shrink-0 rounded-full object-cover
-                ring-2 ring-purple-400/20 transition-all duration-300
-                group-hover:ring-purple-400/50 group-hover:scale-105
-              "
-            />
-            <div className="min-w-0">
-              <p className="mb-0 text-sm font-semibold text-white">! sudo apt install discrd</p>
-              <p className="mb-0 text-xs text-white/40">Discord</p>
-            </div>
-            <span className="ml-auto text-lg text-white/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-purple-400">↗</span>
-          </a>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, delay: 1.1 } }}
-          className="mt-8"
-        >
-          <TextAnimate
-            animation="blurInUp"
-            by="character"
-            className="
-              text-4xl sm:text-5xl font-black tracking-[-0.05em]
-              text-white/20
-            "
-          >
-            Yapımcı: 0akh
-          </TextAnimate>
         </motion.div>
       </section>
     </motion.div>
@@ -547,8 +497,79 @@ function SoftwareCard({
 
 function Footer() {
   return (
-    <footer className="border-t border-accent/20 px-6 py-8 text-center text-sm text-muted-foreground">
-      © 2026 DownloadHub
+    <footer className="border-t border-white/10 px-6 py-12">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
+        
+        {/* Discord Profil */}
+        <a
+          href="https://discord.com/users/709426260497137785"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="
+            group flex items-center gap-4 rounded-2xl
+            border border-white/10
+            bg-white/[0.03]
+            px-5 py-4
+            transition-all duration-300
+            hover:-translate-y-1
+            hover:border-white/20
+            hover:bg-white/[0.06]
+          "
+        >
+          <img
+            src="https://i.pinimg.com/1200x/31/a5/27/31a5279811c56a9d3da2c517036c4d82.jpg"
+            alt="0akh"
+            className="
+              h-12 w-12 rounded-full object-cover
+              ring-2 ring-white/10
+              transition-all duration-300
+              group-hover:ring-white/20
+              group-hover:scale-105
+            "
+          />
+
+          <div className="text-left">
+            <p className="text-sm font-semibold text-white">
+              ! sudo apt install discrd
+            </p>
+            <p className="text-xs text-white/40">
+              Discord • 0akh
+            </p>
+          </div>
+
+          <span className="
+            ml-3 text-lg text-white/30
+            transition-all duration-300
+            group-hover:translate-x-1
+            group-hover:text-white
+          ">
+            ↗
+          </span>
+        </a>
+
+        {/* Yapımcı */}
+        <div className="mt-2">
+          <TextAnimate
+            animation="blurInUp"
+            by="character"
+            className="
+              text-3xl font-black
+              tracking-[-0.05em]
+              text-white/20
+              sm:text-4xl
+            "
+          >
+            Yapımcı: 0akh
+          </TextAnimate>
+        </div>
+
+        {/* Alt bilgi */}
+        <div className="flex flex-col items-center gap-2 text-xs text-white/30">
+          <p>© 2026 DownloadHub</p>
+          <p>Hızlı • Sade • Modern</p>
+        </div>
+
+      </div>
     </footer>
   )
 }
