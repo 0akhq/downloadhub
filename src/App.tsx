@@ -395,7 +395,7 @@ const CCS = [
   {
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
-    videoSrc: "https://youtube.com/embed/VIDEO_ID",
+    videoSrc: "https://youtube.com/embed/JJuSIzkehdE",
     thumbnailSrc: "https://i.imgur.com/f7OZEtQ.jpeg",
   },
 ]
@@ -413,7 +413,6 @@ function CCPage() {
           Editlerinde kullanabileceğin renk düzenlemeleri.
         </p>
 
-        {/* Kartlar — col-span 2 ile büyük */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {CCS.map((cc) => (
             <motion.article
@@ -431,7 +430,6 @@ function CCPage() {
                   alt={cc.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                {/* Play overlay */}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="h-16 w-16 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center">
                     <svg className="h-7 w-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
@@ -441,7 +439,6 @@ function CCPage() {
                 </div>
               </div>
 
-              {/* Alt bilgi */}
               <div className="px-5 pb-5 pt-4">
                 <div className="flex items-center gap-2 mb-2">
                   <h3 className="text-base font-bold text-white">{cc.title}</h3>
@@ -468,7 +465,6 @@ function CCPage() {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -487,7 +483,6 @@ function CCPage() {
               className="relative w-full max-w-5xl rounded-3xl border border-white/10 bg-[#0c0c0c] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Kapat */}
               <button
                 onClick={() => setSelected(null)}
                 className="absolute top-4 right-4 z-10 h-9 w-9 rounded-full bg-black/60 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all"
@@ -497,7 +492,6 @@ function CCPage() {
                 </svg>
               </button>
 
-              {/* Video büyük alan */}
               <div className="relative w-full bg-black" style={{ aspectRatio: "16/9" }}>
                 <HeroVideoDialog
                   animationStyle="from-center"
@@ -508,7 +502,6 @@ function CCPage() {
                 />
               </div>
 
-              {/* Alt bar */}
               <div className="flex items-center justify-between px-6 py-4">
                 <div className="flex items-center gap-3">
                   <h2 className="text-base font-bold text-white">{selected.title}</h2>
