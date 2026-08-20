@@ -193,7 +193,7 @@ function Navbar({
               bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/70
             "
           >
-            ✦ Hızlı • Sade • Modern
+            Hızlı • Sade • Modern
           </TextAnimate>
 
           <motion.h1
