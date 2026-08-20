@@ -70,7 +70,7 @@
   /* Radius system */
   --radius: 0.625rem;
 
-  /* Shadows */
+  /* Shadows - reduced glow */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -114,7 +114,7 @@
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
 
-  --primary: oklch(0.46 0.35 250); /* Lighter violet for dark mode */
+  --primary: oklch(0.46 0.35 250);
   --primary-foreground: oklch(0.985 0 0);
 
   --secondary: oklch(0.269 0 0);
@@ -123,7 +123,7 @@
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
 
-  --accent: oklch(0.46 0.35 250); /* Lighter violet for dark mode */
+  --accent: oklch(0.46 0.35 250);
   --accent-foreground: oklch(0.985 0 0);
 
   --destructive: oklch(0.704 0.191 22.216);
@@ -211,7 +211,6 @@ a {
 
 a:hover {
   color: var(--primary-foreground);
-  background-color: var(--accent-bg);
 }
 
 /* Buttons */
@@ -255,7 +254,6 @@ button:active,
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* Glass variants */
 .glass-light {
   background: rgba(var(--foreground-rgb), 0.02);
   border: 1px solid rgba(var(--border-rgb), 0.15);
@@ -286,7 +284,7 @@ button:active,
 .gradient-bg {
   background: linear-gradient(135deg, var(--accent), var(--primary));
   background-size: 200% 200%;
-  animation: gradient-shift 15s ease infinite;
+  animation: gradient-shift 20s ease infinite;
 }
 
 /* Text gradient */
@@ -308,22 +306,42 @@ button:active,
   outline-color: var(--ring);
 }
 
-/* Animation keyframes */
+/* ─── OPTIMIZED ANIMATIONS ────────────────────────────────────────────────── */
+
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
 @keyframes fade-out {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(10px); }
+  from { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+  to { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
 }
 
+/* Optimized gradient shift - slower animation */
 @keyframes gradient-shift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -340,28 +358,63 @@ button:active,
   50% { opacity: 0.8; }
 }
 
+/* Smooth gradient animation */
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 8s ease infinite;
+}
+
+/* ─── OPTIMIZATIONS ────────────────────────────────────────────────────────── */
+
+/* Will-change for smooth animations */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Performance: disable shadows on lower-end devices */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Utility classes */
 .overflow-visible {
   overflow: visible !important;
 }
 
-/* Scrollbar styling */
+/* Scrollbar styling - optimized */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(var(--border-rgb), 0.1);
+  background: rgba(var(--border-rgb), 0.08);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(var(--foreground-rgb), 0.2);
+  background: rgba(var(--foreground-rgb), 0.15);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(var(--foreground-rgb), 0.3);
+  background: rgba(var(--foreground-rgb), 0.25);
 }
 
 /* Dark mode adjustments */
@@ -423,41 +476,4 @@ button:active,
     animation: none;
     mix-blend-mode: normal;
   }
-}
-
-@keyframes argoluzy-slide {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(50%);
-  }
-}
-
-@keyframes argoluzy-slide-reverse {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-@keyframes gradient-x {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-gradient-x {
-  animation: gradient-x 5s ease infinite;
 }
