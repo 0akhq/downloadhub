@@ -680,7 +680,7 @@ function App() {
               title="RSMB Plugin"
               version="Güncel Sürüm"
               delay={1100}
-              url=""
+              url="https://dosya.co/5ayas91eegjn/RSMB_(Davinci_&_Vegas).zip.html"
             />
             <SoftwareCard
               icon="Ae"
