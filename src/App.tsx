@@ -659,8 +659,6 @@ function App() {
         />
       </div>
 
-      <DownloadBackground />
-
       <Navbar current={page} onNavigate={navigate} />
 
       <AnimatePresence mode="wait">
