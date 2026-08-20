@@ -5,6 +5,7 @@ import {
   AnimatePresence,
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
+import argoCCImage from "@/cc/argo-main-cc.png"
 
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
@@ -394,7 +395,7 @@ const CCS = [
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
     videoSrc: "",
-    thumbnailSrc: "/cc/argo-main-cc.png",
+    thumbnailSrc: argoCCImage,
   },
 ]
 
