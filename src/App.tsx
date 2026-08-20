@@ -420,7 +420,7 @@ function CCPage() {
           Editlerinde kullanabileceğin renk düzenlemeleri.
         </p>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CCS.map((cc) => (
             <motion.article
               key={cc.title}
@@ -429,20 +429,19 @@ function CCPage() {
               transition={{ duration: 0.4 }}
               className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-1"
             >
-              {/* Thumbnail + Video */}
-              <div className="p-3 pb-0">
+              {/* Thumbnail tam genişlik */}
+              <div className="relative aspect-video w-full overflow-hidden">
                 <HeroVideoDialog
                   animationStyle="from-center"
                   videoSrc={cc.videoSrc}
                   thumbnailSrc={cc.thumbnailSrc}
                   thumbnailAlt={cc.title}
-                  className="rounded-xl overflow-hidden"
+                  className="absolute inset-0 h-full w-full [&_img]:h-full [&_img]:w-full [&_img]:rounded-none [&_img]:object-cover [&_img]:border-0 [&_img]:shadow-none"
                 />
               </div>
 
               {/* Kart içeriği */}
               <div className="px-4 pb-4 pt-3">
-                {/* Başlık + badge */}
                 <div className="flex items-center gap-2">
                   <h3 className="text-sm font-semibold text-white">
                     {cc.title}
@@ -456,7 +455,6 @@ function CCPage() {
                   {cc.description}
                 </p>
 
-                {/* Butonlar */}
                 <div className="mt-4 flex gap-2">
                   <button className="flex-1 rounded-lg bg-accent/10 px-3 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/20">
                     CC'yi İncele
