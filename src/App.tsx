@@ -115,7 +115,7 @@ function Navbar({
           D
         </div>
         <span className="font-bold text-foreground tracking-tight">
-          Download<span className="text-accent">Hub</span>
+          Argo <span className="text-accent">Studios</span>
         </span>
       </button>
 
