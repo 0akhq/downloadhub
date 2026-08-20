@@ -74,8 +74,8 @@ function App() {
   }, [floatY, floatX])
 
   return (
-    <SmoothCursor />
     <main className="min-h-screen overflow-x-hidden bg-background text-foreground transition-colors relative overflow-hidden">
+      
 
       <div className="absolute inset-0 -z-50 pointer-events-none">
         <motion.div
@@ -105,6 +105,7 @@ function App() {
       </div>
 
       <DownloadBackground />
+      <SmoothCursor />
 
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16 pb-24">
 
