@@ -7,7 +7,6 @@ import {
   useSpring,
 } from "motion/react"
 import { DownloadBackground } from "@/components/ui/download-background"
-import { SmoothCursor } from "@/components/ui/smooth-cursor"
 
 function App() {
   const [scrollY, setScrollY] = useState(0)
@@ -105,7 +104,6 @@ function App() {
       </div>
 
       <DownloadBackground />
-      <SmoothCursor />
 
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16 pb-24">
 
