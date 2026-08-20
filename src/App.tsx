@@ -395,8 +395,8 @@ const CCS = [
   {
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
-    videoSrc: "https://youtube.com/embed/VIDEO_ID",  // Youtube video ID
-    thumbnailSrc: "https://argostudios.vercel.app/ccphotos/argo-main-cc.png",
+    videoSrc: "https://youtube.com/embed/VIDEO_ID",
+    thumbnailSrc: "/cc/argo-main-cc.png",  // public klasöründeki yol
   },
 ]
 
