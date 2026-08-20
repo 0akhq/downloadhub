@@ -396,11 +396,13 @@ const CCS = [
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
     videoSrc: "https://youtube.com/embed/VIDEO_ID",
-    thumbnailSrc: "/cc/argo-main-cc.png",  // public klasöründeki yol
+    thumbnailSrc: "/cc/argo-main-cc.png",
   },
 ]
 
 function CCPage() {
+  const [selectedCC, setSelectedCC] = useState<null | typeof CCS[0]>(null)
+
   return (
     <motion.div
       key="ccs"
@@ -420,6 +422,7 @@ function CCPage() {
           Editlerinde kullanabileceğin renk düzenlemeleri.
         </p>
 
+        {/* Kart Grid */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CCS.map((cc) => (
             <motion.article
@@ -427,36 +430,44 @@ function CCPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-1"
+              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-1 cursor-pointer"
+              onClick={() => setSelectedCC(cc)}
             >
-              {/* Thumbnail tam genişlik */}
-              <div className="relative aspect-video w-full overflow-hidden">
-                <HeroVideoDialog
-                  animationStyle="from-center"
-                  videoSrc={cc.videoSrc}
-                  thumbnailSrc={cc.thumbnailSrc}
-                  thumbnailAlt={cc.title}
-                  className="absolute inset-0 h-full w-full [&_img]:h-full [&_img]:w-full [&_img]:rounded-none [&_img]:object-cover [&_img]:border-0 [&_img]:shadow-none"
+              {/* Thumbnail */}
+              <div className="relative aspect-video w-full overflow-hidden bg-white/5">
+                <img
+                  src={cc.thumbnailSrc}
+                  alt={cc.title}
+                  className="h-full w-full object-cover"
+                  onError={(e) => {
+                    // Fallback: fotoğraf yüklenemezse placeholder göster
+                    e.currentTarget.style.display = 'none'
+                  }}
                 />
+                {/* Play butonu overlay */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="h-14 w-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                    <svg className="h-6 w-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
-              {/* Kart içeriği */}
+              {/* İçerik */}
               <div className="px-4 pb-4 pt-3">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-white">
-                    {cc.title}
-                  </h3>
+                  <h3 className="text-sm font-semibold text-white">{cc.title}</h3>
                   <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
                     CC
                   </span>
                 </div>
-
-                <p className="mt-1.5 text-xs leading-relaxed text-white/40">
-                  {cc.description}
-                </p>
-
+                <p className="mt-1.5 text-xs leading-relaxed text-white/40">{cc.description}</p>
                 <div className="mt-4 flex gap-2">
-                  <button className="flex-1 rounded-lg bg-accent/10 px-3 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/20">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setSelectedCC(cc) }}
+                    className="flex-1 rounded-lg bg-accent/10 px-3 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
+                  >
                     CC'yi İncele
                   </button>
                   <button className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-accent/30 hover:text-accent">
@@ -468,6 +479,65 @@ function CCPage() {
           ))}
         </div>
       </div>
+
+      {/* Büyük Modal */}
+      <AnimatePresence>
+        {selectedCC && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
+            onClick={() => setSelectedCC(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full max-w-4xl rounded-3xl border border-white/10 bg-[#0a0a0a] overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Kapat butonu */}
+              <button
+                onClick={() => setSelectedCC(null)}
+                className="absolute top-4 right-4 z-10 h-9 w-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all duration-200"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Video / Thumbnail büyük alan */}
+              <div className="relative aspect-video w-full bg-black">
+                <HeroVideoDialog
+                  animationStyle="from-center"
+                  videoSrc={selectedCC.videoSrc}
+                  thumbnailSrc={selectedCC.thumbnailSrc}
+                  thumbnailAlt={selectedCC.title}
+                  className="absolute inset-0 h-full w-full [&_img]:h-full [&_img]:w-full [&_img]:rounded-none [&_img]:object-cover [&_img]:border-0 [&_img]:shadow-none"
+                />
+              </div>
+
+              {/* Alt bilgi */}
+              <div className="px-6 py-5 flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h2 className="text-lg font-bold text-white">{selectedCC.title}</h2>
+                    <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">CC</span>
+                  </div>
+                  <p className="text-sm text-white/40">{selectedCC.description}</p>
+                </div>
+                <button className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2.5 text-sm font-medium text-accent transition-colors">
+                  <Download className="size-4" />
+                  İndir
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   )
 }
