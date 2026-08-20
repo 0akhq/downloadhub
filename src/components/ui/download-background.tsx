@@ -13,12 +13,10 @@ export function DownloadBackground({
         className
       )}
     >
-      {/* Tamamen siyah arka plan */}
       <div className="absolute inset-0 bg-[#050505]" />
 
-      {/* Hareketli ArgoLuzy yazıları */}
       <div className="absolute inset-0 overflow-hidden opacity-[0.055]">
-        {/* Satır 1 */}
+
         <div className="absolute left-[-100%] top-[15%] flex whitespace-nowrap animate-[argoluzy-slide_35s_linear_infinite]">
           {Array.from({ length: 12 }).map((_, i) => (
             <span
@@ -36,7 +34,6 @@ export function DownloadBackground({
           ))}
         </div>
 
-        {/* Satır 2 */}
         <div className="absolute left-[-100%] top-[47%] flex whitespace-nowrap animate-[argoluzy-slide-reverse_45s_linear_infinite]">
           {Array.from({ length: 12 }).map((_, i) => (
             <span
@@ -54,7 +51,6 @@ export function DownloadBackground({
           ))}
         </div>
 
-        {/* Satır 3 */}
         <div className="absolute left-[-100%] top-[79%] flex whitespace-nowrap animate-[argoluzy-slide_40s_linear_infinite]">
           {Array.from({ length: 12 }).map((_, i) => (
             <span
