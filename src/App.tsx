@@ -6,10 +6,12 @@ import {
   useSpring,
   useTransform,
 } from "motion/react"
+import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
 
 
 type Page = "home" | "programs" | "plugins" | "discord"
 
+// ─── Mouse Tracking Hook ──────────────────────────────────────────────────────
 
 function useMousePosition() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -33,6 +35,8 @@ function useMousePosition() {
 
   return mousePosition
 }
+
+// ─── Page transition variants ─────────────────────────────────────────────────
 
 const pageVariants = {
   initial: { opacity: 0, y: 16, filter: "blur(6px)" },
@@ -108,10 +112,10 @@ function Navbar({
           transition-transform duration-300
           group-hover:rotate-6 group-hover:scale-110
         ">
-          A
+          D
         </div>
         <span className="font-bold text-foreground tracking-tight">
-          Argo<span className="text-accent">Studios</span>
+          Download<span className="text-accent">Hub</span>
         </span>
       </button>
 
@@ -631,34 +635,12 @@ function App() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-background text-foreground transition-colors">
-      {/* Optimized background - reduced blur & opacity */}
-      <div className="fixed inset-0 -z-50 pointer-events-none">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(
-              135deg,
-              rgba(var(--accent-rgb), 0.05) 0%,
-              rgba(var(--primary-rgb), 0.03) 50%,
-              rgba(var(--accent-rgb), 0.05) 100%
-            )`,
-            backgroundSize: "300% 300%",
-            animation: "gradientShift 30s ease infinite",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(
-              to bottom,
-              rgba(var(--background-rgb), 0.8) 0%,
-              rgba(var(--background-rgb), 0.4) 100%
-            )`,
-          }}
-        />
-      </div>
-
+    <StarsBackground 
+      starColor="#9b5de5"
+      speed={100}
+      factor={0.05}
+      className="min-h-screen overflow-x-hidden text-foreground"
+    >
       <Navbar current={page} onNavigate={navigate} />
 
       <AnimatePresence mode="wait">
@@ -669,7 +651,7 @@ function App() {
       </AnimatePresence>
 
       <Footer />
-    </main>
+    </StarsBackground>
   )
 }
 
