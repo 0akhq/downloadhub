@@ -650,7 +650,7 @@ function App() {
         {page === "home" && <HomePage key="home" onNavigate={navigate} />}
         {page === "programs" && <ProgramsPage key="programs" />}
         {page === "plugins" && <PluginsPage key="plugins" />}
-        {page === "ccs" && <PluginsPage key="ccs" />}
+        {page === "ccs" && <CCPage key="ccs" />}
         {page === "discord" && <DiscordPage key="discord" />}
       </AnimatePresence>
 
