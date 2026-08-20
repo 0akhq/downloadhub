@@ -7,7 +7,7 @@ import {
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
 
 
-type Page = "home" | "programs" | "plugins" | "discord"
+type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
 
 const pageVariants = {
   initial: { opacity: 0, y: 16, filter: "blur(6px)" },
@@ -36,6 +36,7 @@ const NAV_ITEMS: { id: Page; label: string }[] = [
   { id: "home", label: "Ana Sayfa" },
   { id: "programs", label: "Programlar" },
   { id: "plugins", label: "Pluginler" },
+  { id: "ccs", label: "CC" },
   { id: "discord", label: "Discord" },
 ]
 
@@ -344,7 +345,6 @@ const PLUGINS = [
   { icon: "Ae", title: "RSMB Plugin", version: "Güncel Sürüm", url: "https://dosya.co/5ayas91eegjn/RSMB_(Davinci_&_Vegas).zip.html" },
   { icon: "Ae", title: "Twitch Plugin", version: "Güncel Sürüm", url: "https://dosya.co/ap2s81776yvq/Twitch.zip.html" },
   { icon: "Ae", title: "Twixtor Plugin", version: "Güncel Sürüm", url: "https://dosya.co/fh47w33pvmrz/Twixtor.zip.html" },
-  { icon: "Ae", title: "Argo Main CC", version: "Güncel", url: "" },
 ]
 
 function PluginsPage() {
@@ -377,6 +377,61 @@ function PluginsPage() {
         >
           {PLUGINS.map((plugin) => (
             <SoftwareCard key={plugin.title} {...plugin} delay={0} />
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
+
+const CCS = [
+  {
+    icon: "CC",
+    title: "Argo Main CC",
+    version: "Argo Studios • Güncel Sürüm",
+    url: "Yakında",
+  },
+]
+
+function CCPage() {
+  return (  
+    <motion.div
+      key="ccs"
+      {...pageVariants}
+      className="min-h-screen pt-24 pb-16 px-6"
+    >
+      <div className="mx-auto max-w-6xl">
+        <TextAnimate
+          animation="blurInUp"
+          by="word"
+          className="text-4xl font-bold md:text-5xl text-accent/80"
+        >
+          Color Corrections
+        </TextAnimate>
+
+        <p className="mt-4 max-w-xl text-muted-foreground">
+          Editlerin için hazırlanan renk ayarları ve CC paketleri.
+        </p>
+
+        <motion.div
+          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.03,
+                delayChildren: 0.1,
+              },
+            },
+          }}
+        >
+          {CCS.map((cc) => (
+            <SoftwareCard
+              key={cc.title}
+              {...cc}
+              delay={0}
+            />
           ))}
         </motion.div>
       </div>
@@ -595,6 +650,7 @@ function App() {
         {page === "home" && <HomePage key="home" onNavigate={navigate} />}
         {page === "programs" && <ProgramsPage key="programs" />}
         {page === "plugins" && <PluginsPage key="plugins" />}
+        {page === "ccs" && <PluginsPage key="ccs" />}
         {page === "discord" && <DiscordPage key="discord" />}
       </AnimatePresence>
 
