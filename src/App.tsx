@@ -452,12 +452,15 @@ function CCPage() {
                   >
                     CC'yi İncele ▶
                   </button>
-                  <button
+                  <a
+                    href="https://www.itemsatis.com/video-edit-hizmeti/after-effects-ultra-gercekci-cc-5680942.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
                     className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/40 transition-colors hover:border-accent/30 hover:text-accent text-base"
                   >
                     <ShoppingCart className="size-4" />
-                  </button>
+                  </a>
                 </div>
               </div>
             </motion.article>
@@ -514,7 +517,7 @@ function CCPage() {
                 className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2 text-sm font-semibold text-accent transition-colors"
               >
                 <ShoppingCart className="size-4" />
-                🛒 Satın al
+                Satın al
               </a>
               </div>
             </motion.div>
