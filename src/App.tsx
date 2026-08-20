@@ -6,7 +6,6 @@ import {
   useSpring,
   useTransform,
 } from "motion/react"
-import { DownloadBackground } from "@/components/ui/download-background"
 
 
 type Page = "home" | "programs" | "plugins" | "discord"
