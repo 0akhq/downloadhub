@@ -8,11 +8,9 @@ import {
 } from "motion/react"
 import { DownloadBackground } from "@/components/ui/download-background"
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 type Page = "home" | "programs" | "plugins" | "discord"
 
-// ─── Page transition variants ─────────────────────────────────────────────────
 
 const pageVariants = {
   initial: { opacity: 0, y: 16, filter: "blur(6px)" },
@@ -36,7 +34,6 @@ const pageVariants = {
   },
 }
 
-// ─── Navbar ───────────────────────────────────────────────────────────────────
 
 const NAV_ITEMS: { id: Page; label: string }[] = [
   { id: "home", label: "Ana Sayfa" },
@@ -77,7 +74,6 @@ function Navbar({
         }
       `}
     >
-      {/* Logo */}
       <button
         onClick={() => onNavigate("home")}
         className="flex items-center gap-2 group"
@@ -97,7 +93,6 @@ function Navbar({
         </span>
       </button>
 
-      {/* Desktop nav */}
       <div className="hidden sm:flex items-center gap-1">
         {NAV_ITEMS.map((item) => (
           <button
@@ -124,7 +119,6 @@ function Navbar({
         ))}
       </div>
 
-      {/* Mobile hamburger */}
       <button
         onClick={() => setMenuOpen((v) => !v)}
         className="sm:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-white/5 transition-colors"
@@ -144,7 +138,6 @@ function Navbar({
         />
       </button>
 
-      {/* Mobile dropdown */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -184,8 +177,6 @@ function Navbar({
   )
 }
 
-// ─── Pages ────────────────────────────────────────────────────────────────────
-
 function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
   const floatY = useSpring(0, { stiffness: 80, damping: 20 })
   const floatX = useSpring(0, { stiffness: 60, damping: 20 })
@@ -201,7 +192,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
 
   return (
     <motion.div key="home" {...pageVariants} className="min-h-screen">
-      {/* Background glows */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <motion.div
           className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-violet-600/10 blur-[150px]"
@@ -217,7 +207,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
         />
       </div>
 
-      {/* Hero */}
       <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-24 pb-16 text-center">
         <motion.div
           className="mx-auto max-w-4xl"
@@ -254,7 +243,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
             tek yerde.
           </motion.h1>
 
-          {/* CTA buttons */}
           <motion.div
             className="mt-12 flex flex-wrap items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
@@ -286,7 +274,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
           </motion.div>
         </motion.div>
 
-        {/* Creator card */}
         <motion.div
           initial={{ opacity: 0, y: 25, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 1 } }}
@@ -321,7 +308,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
           </a>
         </motion.div>
 
-        {/* Maker name */}
         <motion.div
           initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, delay: 1.1 } }}
@@ -346,7 +332,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
   )
 }
 
-// ─── Programs Page ─────────────────────────────────────────────────────────────
 
 const PROGRAMS = [
   { icon: "Ae", title: "After Effects 2026", version: "Adobe • Güncel sürüm", url: "https://bzzhr.to/uuiu8aol7zpz" },
@@ -395,7 +380,6 @@ function ProgramsPage() {
           İhtiyacın olan yaratıcı araçlara hızlıca ulaş.
         </p>
 
-        {/* Filter pills */}
         <div className="mt-8 flex flex-wrap gap-2">
           {categories.map((cat) => (
             <button
@@ -425,7 +409,6 @@ function ProgramsPage() {
   )
 }
 
-// ─── Plugins Page ──────────────────────────────────────────────────────────────
 
 const PLUGINS = [
   { icon: "Ae", title: "Sapphire Plugin", version: "Güncel Sürüm", url: "https://dosya.co/nm3rxo35v1xs/s4pph1r3.rar.html" },
@@ -462,7 +445,6 @@ function PluginsPage() {
   )
 }
 
-// ─── Discord Page ──────────────────────────────────────────────────────────────
 
 function DiscordPage() {
   return (
@@ -505,7 +487,6 @@ function DiscordPage() {
   )
 }
 
-// ─── Software Card ─────────────────────────────────────────────────────────────
 
 function SoftwareCard({
   icon,
@@ -568,9 +549,8 @@ function SoftwareCard({
   )
 }
 
-// ─── Footer ────────────────────────────────────────────────────────────────────
 
-function Footer({ current }: { current: Page }) {
+function Footer() {
   return (
     <footer className="border-t border-accent/20 px-6 py-8 text-center text-sm text-muted-foreground">
       © 2026 DownloadHub
@@ -578,12 +558,9 @@ function Footer({ current }: { current: Page }) {
   )
 }
 
-// ─── App ───────────────────────────────────────────────────────────────────────
-
 function App() {
   const [page, setPage] = useState<Page>("home")
 
-  // Scroll to top on page change
   const navigate = (p: Page) => {
     window.scrollTo({ top: 0, behavior: "smooth" })
     setPage(p)
@@ -591,7 +568,6 @@ function App() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-background text-foreground transition-colors">
-      {/* Shared global background */}
       <div className="fixed inset-0 -z-50 pointer-events-none">
         <div
           className="absolute inset-0"
@@ -629,7 +605,7 @@ function App() {
         {page === "discord" && <DiscordPage key="discord" />}
       </AnimatePresence>
 
-      <Footer current={page} />
+      <Footer />
     </main>
   )
 }
