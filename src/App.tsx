@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { TextAnimate } from "@/components/ui/text-animate"
 import {
   motion,
@@ -88,7 +88,7 @@ function Navbar({
     <motion.nav
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, easing: [0.22, 1, 0.36, 1] }}
       className={`
         fixed top-0 inset-x-0 z-50
         flex items-center justify-between
@@ -115,7 +115,7 @@ function Navbar({
           D
         </div>
         <span className="font-bold text-foreground tracking-tight">
-          Argo <span className="text-accent">Studios</span>
+          Download<span className="text-accent">Hub</span>
         </span>
       </button>
 
@@ -437,11 +437,23 @@ function ProgramsPage() {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
-          {filtered.map((prog, i) => (
-            <SoftwareCard key={prog.title} {...prog} delay={i * 40} />
+        <motion.div 
+          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.03,
+                delayChildren: 0.1,
+              },
+            },
+          }}
+        >
+          {filtered.map((prog) => (
+            <SoftwareCard key={prog.title} {...prog} delay={0} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   )
@@ -473,11 +485,23 @@ function PluginsPage() {
           After Effects workflow'unu güçlendir.
         </p>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
-          {PLUGINS.map((plugin, i) => (
-            <SoftwareCard key={plugin.title} {...plugin} delay={i * 60} />
+        <motion.div 
+          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.03,
+                delayChildren: 0.1,
+              },
+            },
+          }}
+        >
+          {PLUGINS.map((plugin) => (
+            <SoftwareCard key={plugin.title} {...plugin} delay={0} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   )
@@ -530,7 +554,7 @@ function SoftwareCard({
   icon,
   title,
   version,
-  delay,
+  delay: _delay,
   url,
 }: {
   icon: string
@@ -541,13 +565,19 @@ function SoftwareCard({
 }) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: delay / 1000 } }}
+      variants={{
+        hidden: { opacity: 0, y: 15 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.4, ease: "easeOut" },
+        },
+      }}
       whileHover={{ scale: 1.02, y: -4, transition: { type: "spring", stiffness: 300, damping: 20 } }}
       whileTap={{ scale: 0.98 }}
       className="
         group relative overflow-hidden rounded-3xl border border-card/20
-        bg-card/5 p-6 backdrop-blur-lg transition-all duration-500
+        bg-card/5 p-6 backdrop-blur-lg transition-all duration-300
         hover:border-accent/30 hover:bg-card/10
         hover:shadow-lg hover:shadow-accent/10
       "
