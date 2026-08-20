@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { TextAnimate } from "@/components/ui/text-animate"
 import {
   motion,
@@ -11,6 +11,32 @@ import { DownloadBackground } from "@/components/ui/download-background"
 
 type Page = "home" | "programs" | "plugins" | "discord"
 
+// ─── Mouse Tracking Hook ──────────────────────────────────────────────────────
+
+function useMousePosition() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  useEffect(() => {
+    let animationId: number
+
+    const handleMouseMove = (e: MouseEvent) => {
+      cancelAnimationFrame(animationId)
+      animationId = requestAnimationFrame(() => {
+        setMousePosition({ x: e.clientX, y: e.clientY })
+      })
+    }
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove)
+      cancelAnimationFrame(animationId)
+    }
+  }, [])
+
+  return mousePosition
+}
+
+// ─── Page transition variants ─────────────────────────────────────────────────
 
 const pageVariants = {
   initial: { opacity: 0, y: 16, filter: "blur(6px)" },
@@ -177,7 +203,10 @@ function Navbar({
   )
 }
 
+// ─── Home Page with Mouse Tracking ────────────────────────────────────────────
+
 function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
+  const mousePos = useMousePosition()
   const floatY = useSpring(0, { stiffness: 80, damping: 20 })
   const floatX = useSpring(0, { stiffness: 60, damping: 20 })
   const floatYHalf = useTransform(floatY, (v) => v * 0.5)
@@ -186,23 +215,34 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
   const floatXFifth = useTransform(floatX, (v) => v * 0.2)
 
   useEffect(() => {
-    floatY.set(-10)
-    floatX.set(5)
-  }, [floatY, floatX])
+    const centerX = typeof window !== "undefined" ? window.innerWidth / 2 : 0
+    const centerY = typeof window !== "undefined" ? window.innerHeight / 2 : 0
+
+    const distX = (mousePos.x - centerX) * 0.05
+    const distY = (mousePos.y - centerY) * 0.05
+
+    floatX.set(distX)
+    floatY.set(distY)
+  }, [mousePos, floatX, floatY])
 
   return (
     <motion.div key="home" {...pageVariants} className="min-h-screen">
       <div className="pointer-events-none fixed inset-0 -z-10">
+        {/* Ana gradient blob - mouse tracking */}
         <motion.div
-          className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-violet-600/10 blur-[150px]"
+          className="absolute left-1/2 top-[-250px] h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-600/8 blur-[100px]"
           style={{ x: floatX }}
         />
+        
+        {/* İkinci blob - reduced opacity */}
         <motion.div
-          className="absolute left-[5%] top-[40%] h-[350px] w-[350px] rounded-full bg-purple-600/5 blur-[130px]"
+          className="absolute left-[5%] top-[40%] h-[300px] w-[300px] rounded-full bg-purple-600/3 blur-[100px]"
           style={{ y: floatYHalf, x: floatXThird }}
         />
+        
+        {/* Üçüncü blob - reduced opacity */}
         <motion.div
-          className="absolute right-[5%] top-[55%] h-[300px] w-[300px] rounded-full bg-indigo-500/5 blur-[120px]"
+          className="absolute right-[5%] top-[55%] h-[250px] w-[250px] rounded-full bg-indigo-500/3 blur-[100px]"
           style={{ y: floatYThird, x: floatXFifth }}
         />
       </div>
@@ -255,7 +295,7 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
                 bg-accent text-background
                 hover:opacity-90 hover:-translate-y-0.5
                 transition-all duration-200
-                shadow-[0_0_30px_rgba(var(--accent-rgb),0.3)]
+                shadow-[0_0_20px_rgba(139,92,246,0.2)]
               "
             >
               Programlara Bak →
@@ -288,7 +328,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
               bg-white/[0.03] p-4 text-left no-underline backdrop-blur-xl
               transition-all duration-300 hover:-translate-y-1
               hover:border-purple-400/30 hover:bg-white/[0.06]
-              hover:shadow-[0_10px_40px_rgba(168,85,247,0.12)]
             "
           >
             <img
@@ -301,7 +340,7 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
               "
             />
             <div className="min-w-0">
-              <p className="mb-0 text-sm font-semibold text-white">!     sudo apt install discrd</p>
+              <p className="mb-0 text-sm font-semibold text-white">! sudo apt install discrd</p>
               <p className="mb-0 text-xs text-white/40">Discord</p>
             </div>
             <span className="ml-auto text-lg text-white/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-purple-400">↗</span>
@@ -321,7 +360,6 @@ function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
               bg-gradient-to-r from-pink-400 via-purple-400 via-blue-400 to-cyan-400
               bg-[length:200%_auto] bg-clip-text text-transparent
               animate-gradient-x
-              drop-shadow-[0_0_30px_rgba(168,85,247,0.25)]
             "
           >
             Yapımcı: 0akh
@@ -511,13 +549,13 @@ function SoftwareCard({
         group relative overflow-hidden rounded-3xl border border-card/20
         bg-card/5 p-6 backdrop-blur-lg transition-all duration-500
         hover:border-accent/30 hover:bg-card/10
-        hover:shadow-lg hover:shadow-accent/20
+        hover:shadow-lg hover:shadow-accent/10
       "
     >
       <div className="
         absolute -right-20 -top-20 h-40 w-40 rounded-full
-        bg-accent/10 blur-3xl transition-all duration-700
-        group-hover:scale-150 group-hover:bg-accent/20
+        bg-accent/5 blur-3xl transition-all duration-700
+        group-hover:scale-150 group-hover:bg-accent/10
       " />
 
       <div className="
@@ -568,18 +606,19 @@ function App() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-background text-foreground transition-colors">
+      {/* Optimized background - reduced blur & opacity */}
       <div className="fixed inset-0 -z-50 pointer-events-none">
         <div
           className="absolute inset-0"
           style={{
             background: `linear-gradient(
               135deg,
-              rgba(var(--accent-rgb), 0.08) 0%,
-              rgba(var(--primary-rgb), 0.05) 50%,
-              rgba(var(--accent-rgb), 0.08) 100%
+              rgba(var(--accent-rgb), 0.05) 0%,
+              rgba(var(--primary-rgb), 0.03) 50%,
+              rgba(var(--accent-rgb), 0.05) 100%
             )`,
             backgroundSize: "300% 300%",
-            animation: "gradientShift 20s ease infinite",
+            animation: "gradientShift 30s ease infinite",
           }}
         />
         <div
@@ -587,8 +626,8 @@ function App() {
           style={{
             background: `linear-gradient(
               to bottom,
-              rgba(var(--background-rgb), 0.7) 0%,
-              rgba(var(--background-rgb), 0.3) 100%
+              rgba(var(--background-rgb), 0.8) 0%,
+              rgba(var(--background-rgb), 0.4) 100%
             )`,
           }}
         />
