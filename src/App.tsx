@@ -659,21 +659,21 @@ function App() {
               title="Sapphire Plugin"
               version="Güncel Sürüm"
               delay={1050}
-              url=""
+              url="https://dosya.co/nm3rxo35v1xs/s4pph1r3.rar.html"
             />
             <SoftwareCard
               icon="Ae"
               title="BCC Plugin"
               version="Güncel Sürüm"
               delay={1100}
-              url=""
+              url="https://dosya.co/jfzcssuflcy9/BCC_(Adobe).rar.html"
             />
             <SoftwareCard
               icon="Ae"
               title="Flow Plugin"
               version="Güncel Sürüm"
               delay={1100}
-              url=""
+              url="https://dosya.co/b9urgfv0vl0x/Flow_v1.4.2.zip.html"
             />
             <SoftwareCard
               icon="Ae"
