@@ -5,7 +5,6 @@ import {
   AnimatePresence,
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
-import { HeroVideoDialog } from "./components/ui/hero-video-dialog"
 import { ShoppingCart } from "lucide-react"
 
 
@@ -395,10 +394,212 @@ const CCS = [
   {
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
-    videoSrc: "https://youtube.com/embed/JJuSIzkehdE",
-    thumbnailSrc: "https://i.imgur.com/f7OZEtQ.jpeg",
+    beforeImage: "https://i.imgur.com/zBBnrsc.png",
+    afterImage: "https://i.imgur.com/T84fAck.png",
+    thumbnailSrc: "https://i.imgur.com/zBBnrsc.png",
   },
 ]
+
+function BeforeAfterSlider({
+  beforeImage,
+  afterImage,
+}: {
+  beforeImage: string
+  afterImage: string
+}) {
+  const [sliderPosition, setSliderPosition] = useState(50)
+  const [isDragging, setIsDragging] = useState(false)
+
+  const updateSliderPosition = (clientX: number, element: HTMLElement) => {
+    const rect = element.getBoundingClientRect()
+
+    const position =
+      ((clientX - rect.left) / rect.width) * 100
+
+    setSliderPosition(Math.max(0, Math.min(100, position)))
+  }
+
+  const handlePointerDown = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
+    setIsDragging(true)
+    e.currentTarget.setPointerCapture(e.pointerId)
+
+    updateSliderPosition(e.clientX, e.currentTarget)
+  }
+
+  const handlePointerMove = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
+    if (!isDragging) return
+
+    updateSliderPosition(e.clientX, e.currentTarget)
+  }
+
+  const handlePointerUp = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
+    setIsDragging(false)
+
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    } catch {}
+  }
+
+  return (
+    <div
+      className={`relative w-full h-full overflow-hidden select-none ${
+        isDragging ? "cursor-col-resize" : "cursor-col-resize"
+      }`}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+    >
+      {/* ÖNCESİ - ALT KATMAN */}
+      <img
+        src={beforeImage}
+        alt="Öncesi"
+        draggable={false}
+        className="
+          absolute inset-0
+          w-full h-full
+          object-cover
+          pointer-events-none
+        "
+      />
+
+      {/* SONRASI - ÜST KATMAN */}
+      <div
+        className="
+          absolute inset-y-0 left-0
+          overflow-hidden
+          pointer-events-none
+        "
+        style={{
+          width: `${sliderPosition}%`,
+        }}
+      >
+        <img
+          src={afterImage}
+          alt="Sonrası"
+          draggable={false}
+          className="
+            absolute inset-0
+            w-full h-full
+            object-cover
+            max-w-none
+          "
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        />
+      </div>
+
+      {/* ORTA ÇİZGİ */}
+      <div
+        className="
+          absolute top-0 bottom-0
+          w-[2px]
+          bg-white
+          shadow-[0_0_10px_rgba(0,0,0,0.5)]
+          pointer-events-none
+        "
+        style={{
+          left: `${sliderPosition}%`,
+          transform: "translateX(-50%)",
+        }}
+      >
+        {/* SÜRÜKLEME BUTONU */}
+        <div
+          className="
+            absolute
+            left-1/2 top-1/2
+            -translate-x-1/2
+            -translate-y-1/2
+            flex items-center justify-center
+            w-14 h-14
+            rounded-full
+            bg-white
+            shadow-[0_4px_20px_rgba(0,0,0,0.35)]
+            border border-black/10
+          "
+        >
+          <div className="flex items-center gap-0.5 text-black">
+            {/* SOL OK */}
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <path
+                d="M15 18l-6-6 6-6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+
+            {/* SAĞ OK */}
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <path
+                d="M9 18l6-6-6-6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      {/* ÖNCESİ ETİKETİ */}
+      <div
+        className="
+          absolute
+          bottom-4 left-4
+          px-4 py-2
+          rounded-full
+          bg-black/70
+          backdrop-blur-md
+          border border-white/10
+          shadow-lg
+          pointer-events-none
+        "
+      >
+        <span className="text-xs font-bold text-white uppercase">
+          Öncesi
+        </span>
+      </div>
+
+      {/* SONRASI ETİKETİ */}
+      <div
+        className="
+          absolute
+          bottom-4 right-4
+          px-4 py-2
+          rounded-full
+          bg-black/70
+          backdrop-blur-md
+          border border-white/10
+          shadow-lg
+          pointer-events-none
+        "
+      >
+        <span className="text-xs font-bold text-white uppercase">
+          Sonrası
+        </span>
+      </div>
+    </div>
+  )
+}
 
 function CCPage() {
   const [selected, setSelected] = useState<typeof CCS[0] | null>(null)
@@ -423,7 +624,6 @@ function CCPage() {
               onClick={() => setSelected(cc)}
               className="group cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-1"
             >
-              {/* Thumbnail — çok daha büyük */}
               <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
                 <img
                   src={cc.thumbnailSrc}
@@ -432,8 +632,8 @@ function CCPage() {
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="h-16 w-16 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                    <svg className="h-7 w-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
+                    <svg className="h-7 w-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
                   </div>
                 </div>
@@ -496,12 +696,9 @@ function CCPage() {
               </button>
 
               <div className="relative w-full bg-black" style={{ aspectRatio: "16/9" }}>
-                <HeroVideoDialog
-                  animationStyle="from-center"
-                  videoSrc={selected.videoSrc}
-                  thumbnailSrc={selected.thumbnailSrc}
-                  thumbnailAlt={selected.title}
-                  className="absolute inset-0 h-full w-full [&_img]:h-full [&_img]:w-full [&_img]:rounded-none [&_img]:object-cover [&_img]:border-0 [&_img]:shadow-none"
+                <BeforeAfterSlider
+                  beforeImage={selected.beforeImage}
+                  afterImage={selected.afterImage}
                 />
               </div>
 
@@ -707,7 +904,6 @@ function Footer() {
           </TextAnimate>
         </div>
 
-        {/* Alt bilgi */}
         <div className="flex flex-col items-center gap-2 text-xs text-white/30">
           <p>© 2026 Argo Studios</p>
           <p>Hızlı • Sade • Modern</p>
