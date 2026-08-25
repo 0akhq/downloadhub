@@ -6,6 +6,7 @@ import {
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
 import { ShoppingCart } from "lucide-react"
+import { ImgComparisonSlider } from '@img-comparison-slider/react';
 
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
@@ -400,207 +401,6 @@ const CCS = [
   },
 ]
 
-function BeforeAfterSlider({
-  beforeImage,
-  afterImage,
-}: {
-  beforeImage: string
-  afterImage: string
-}) {
-  const [sliderPosition, setSliderPosition] = useState(50)
-  const [isDragging, setIsDragging] = useState(false)
-
-  const updateSliderPosition = (clientX: number, element: HTMLElement) => {
-    const rect = element.getBoundingClientRect()
-
-    const position =
-      ((clientX - rect.left) / rect.width) * 100
-
-    setSliderPosition(Math.max(0, Math.min(100, position)))
-  }
-
-  const handlePointerDown = (
-    e: React.PointerEvent<HTMLDivElement>
-  ) => {
-    setIsDragging(true)
-    e.currentTarget.setPointerCapture(e.pointerId)
-
-    updateSliderPosition(e.clientX, e.currentTarget)
-  }
-
-  const handlePointerMove = (
-    e: React.PointerEvent<HTMLDivElement>
-  ) => {
-    if (!isDragging) return
-
-    updateSliderPosition(e.clientX, e.currentTarget)
-  }
-
-  const handlePointerUp = (
-    e: React.PointerEvent<HTMLDivElement>
-  ) => {
-    setIsDragging(false)
-
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId)
-    } catch {}
-  }
-
-  return (
-    <div
-      className={`relative w-full h-full overflow-hidden select-none ${
-        isDragging ? "cursor-col-resize" : "cursor-col-resize"
-      }`}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handlePointerUp}
-    >
-      {/* ÖNCESİ - ALT KATMAN */}
-      <img
-        src={beforeImage}
-        alt="Öncesi"
-        draggable={false}
-        className="
-          absolute inset-0
-          w-full h-full
-          object-cover
-          pointer-events-none
-        "
-      />
-
-      {/* SONRASI - ÜST KATMAN */}
-      <div
-        className="
-          absolute inset-y-0 left-0
-          overflow-hidden
-          pointer-events-none
-        "
-        style={{
-          width: `${sliderPosition}%`,
-        }}
-      >
-        <img
-          src={afterImage}
-          alt="Sonrası"
-          draggable={false}
-          className="
-            absolute inset-0
-            w-full h-full
-            object-cover
-            max-w-none
-          "
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-        />
-      </div>
-
-      {/* ORTA ÇİZGİ */}
-      <div
-        className="
-          absolute top-0 bottom-0
-          w-[2px]
-          bg-white
-          shadow-[0_0_10px_rgba(0,0,0,0.5)]
-          pointer-events-none
-        "
-        style={{
-          left: `${sliderPosition}%`,
-          transform: "translateX(-50%)",
-        }}
-      >
-        {/* SÜRÜKLEME BUTONU */}
-        <div
-          className="
-            absolute
-            left-1/2 top-1/2
-            -translate-x-1/2
-            -translate-y-1/2
-            flex items-center justify-center
-            w-14 h-14
-            rounded-full
-            bg-white
-            shadow-[0_4px_20px_rgba(0,0,0,0.35)]
-            border border-black/10
-          "
-        >
-          <div className="flex items-center gap-0.5 text-black">
-            {/* SOL OK */}
-            <svg
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path
-                d="M15 18l-6-6 6-6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-
-            {/* SAĞ OK */}
-            <svg
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path
-                d="M9 18l6-6-6-6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* ÖNCESİ ETİKETİ */}
-      <div
-        className="
-          absolute
-          bottom-4 left-4
-          px-4 py-2
-          rounded-full
-          bg-black/70
-          backdrop-blur-md
-          border border-white/10
-          shadow-lg
-          pointer-events-none
-        "
-      >
-        <span className="text-xs font-bold text-white uppercase">
-          Öncesi
-        </span>
-      </div>
-
-      {/* SONRASI ETİKETİ */}
-      <div
-        className="
-          absolute
-          bottom-4 right-4
-          px-4 py-2
-          rounded-full
-          bg-black/70
-          backdrop-blur-md
-          border border-white/10
-          shadow-lg
-          pointer-events-none
-        "
-      >
-        <span className="text-xs font-bold text-white uppercase">
-          Sonrası
-        </span>
-      </div>
-    </div>
-  )
-}
-
 function CCPage() {
   const [selected, setSelected] = useState<typeof CCS[0] | null>(null)
 
@@ -695,11 +495,27 @@ function CCPage() {
                 </svg>
               </button>
 
-              <div className="relative w-full bg-black" style={{ aspectRatio: "16/9" }}>
-                <BeforeAfterSlider
-                  beforeImage={selected.beforeImage}
-                  afterImage={selected.afterImage}
-                />
+              <div
+                className="relative w-full overflow-hidden bg-black"
+                style={{ aspectRatio: "16/9" }}
+              >
+                <ImgComparisonSlider className="w-full h-full">
+                  <img
+                    slot="first"
+                    src={selected.beforeImage}
+                    alt="Öncesi"
+                    draggable={false}
+                    className="w-full h-full object-cover"
+                  />
+
+                  <img
+                    slot="second"
+                    src={selected.afterImage}
+                    alt="Sonrası"
+                    draggable={false}
+                    className="w-full h-full object-cover"
+                  />
+                </ImgComparisonSlider>
               </div>
 
               <div className="flex items-center justify-between px-6 py-4">
