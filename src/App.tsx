@@ -395,9 +395,9 @@ const CCS = [
   {
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
-    beforeImage: "https://i.imgur.com/zBBnrsc.png",
-    afterImage: "https://i.imgur.com/T84fAck.png",
-    thumbnailSrc: "https://i.imgur.com/zBBnrsc.png",
+    beforeImage: "https://i.imgur.com/ShGSXBv.png",
+    afterImage: "https://i.imgur.com/RMQE4Sf.jpeg",
+    thumbnailSrc: "https://i.imgur.com/RMQE4Sf.jpeg",
   },
   {
     title: "Argo Efso CC",
@@ -405,6 +405,20 @@ const CCS = [
     beforeImage: "https://i.imgur.com/xRIhH9V.png",
     afterImage: "https://i.imgur.com/0t8hBUF.png",
     thumbnailSrc: "https://i.imgur.com/xRIhH9V.png"
+  },
+  {
+    title: "Argo Dark CC",
+    description: "Argo Dark CC görünüşü.",
+    beforeImage: "https://i.imgur.com/yXZT3rZ.png",
+    afterImage: "https://i.imgur.com/x5IAmwu.jpeg",
+    thumbnailSrc: "https://i.imgur.com/x5IAmwu.jpeg"
+  },
+  {
+    title: "Argo Açık CC",
+    description: "Argo Açık CC görünüşü.",
+    beforeImage: "https://i.imgur.com/giiN0oD.png",
+    afterImage: "https://i.imgur.com/3QCsgmt.jpeg",
+    thumbnailSrc: "https://i.imgur.com/3QCsgmt.jpeg"
   }
 ]
 
@@ -764,4 +778,4 @@ function App() {
     </StarsBackground>
   )
 }
-export default App 
+export default App
