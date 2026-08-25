@@ -398,27 +398,31 @@ const CCS = [
     beforeImage: "https://i.imgur.com/4e1aKZz.png",
     afterImage: "https://i.imgur.com/JTGbPEt.jpeg",
     thumbnailSrc: "https://i.imgur.com/JTGbPEt.jpeg",
+    saleUrl: "https://www.itemsatis.com/video-edit-hizmeti/after-effects-ultra-gercekci-cc-5680942.html",
   },
   {
     title: "Argo Efso CC",
     description: "Argo Efso Fenasal CC görünüm.",
     beforeImage: "https://i.imgur.com/AyWbU2g.png",
-    afterImage: "https://i.imgur.com/qqL1DNR.jpeg", 
-    thumbnailSrc: "https://i.imgur.com/qqL1DNR.jpeg"
+    afterImage: "https://i.imgur.com/qqL1DNR.jpeg",
+    thumbnailSrc: "https://i.imgur.com/qqL1DNR.jpeg",
+    saleUrl: "https://www.itemsatis.com/video-edit-hizmeti/argo-efso-cc-5702317.html",
   },
   {
     title: "Argo Dark CC",
     description: "Argo Dark CC görünüşü.",
     beforeImage: "https://i.imgur.com/yXZT3rZ.png",
     afterImage: "https://i.imgur.com/x5IAmwu.jpeg",
-    thumbnailSrc: "https://i.imgur.com/x5IAmwu.jpeg"
+    thumbnailSrc: "https://i.imgur.com/x5IAmwu.jpeg",
+    saleUrl: "https://www.itemsatis.com/video-edit-hizmeti/argo-dark-cc-5702331.html",
   },
   {
     title: "Argo Açık CC",
     description: "Argo Açık CC görünüşü.",
     beforeImage: "https://i.imgur.com/giiN0oD.png",
     afterImage: "https://i.imgur.com/3QCsgmt.jpeg",
-    thumbnailSrc: "https://i.imgur.com/3QCsgmt.jpeg"
+    thumbnailSrc: "https://i.imgur.com/3QCsgmt.jpeg",
+    saleUrl: "https://www.itemsatis.com/video-edit-hizmeti/argo-acik-cc-5702344.html",
   }
 ]
 
@@ -474,7 +478,7 @@ function CCPage() {
                     CC'yi İncele ▶
                   </button>
                   <a
-                    href="https://www.itemsatis.com/video-edit-hizmeti/after-effects-ultra-gercekci-cc-5680942.html"
+                    href={cc.saleUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
@@ -518,15 +522,15 @@ function CCPage() {
 
               <div
                 className="relative w-full overflow-hidden bg-black"
-                style={{ aspectRatio: "16/9" }}
+                style={{ aspectRatio: "1.878 / 1" }}
               >
-                <ImgComparisonSlider className="w-full h-full">
+                <ImgComparisonSlider className="block w-full h-full">
                   <img
                     slot="first"
                     src={selected.beforeImage}
                     alt="Öncesi"
                     draggable={false}
-                    className="w-full h-full object-cover"
+                    className="block w-full h-full object-fill"
                   />
 
                   <img
@@ -534,7 +538,7 @@ function CCPage() {
                     src={selected.afterImage}
                     alt="Sonrası"
                     draggable={false}
-                    className="w-full h-full object-cover"
+                    className="block w-full h-full object-fill"
                   />
                 </ImgComparisonSlider>
               </div>
@@ -545,7 +549,7 @@ function CCPage() {
                   <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">CC</span>
                 </div>
                 <a
-                href="https://www.itemsatis.com/video-edit-hizmeti/after-effects-ultra-gercekci-cc-5680942.html"
+                href={selected.saleUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2 text-sm font-semibold text-accent transition-colors"
