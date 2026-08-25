@@ -664,7 +664,6 @@ function Footer() {
     <footer className="border-t border-white/10 px-6 py-12">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
         
-        {/* Discord Profil */}
         <a
           href="https://discord.com/users/709426260497137785"
           target="_blank"
@@ -711,7 +710,6 @@ function Footer() {
           </span>
         </a>
 
-        {/* Yapımcı */}
         <div className="mt-2">
           <TextAnimate
             animation="blurInUp"
