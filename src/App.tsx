@@ -402,9 +402,9 @@ const CCS = [
   {
     title: "Argo Efso CC",
     description: "Argo Efso Fenasal CC görünüm.",
-    beforeImage: "https://i.imgur.com/xRIhH9V.png",
-    afterImage: "https://i.imgur.com/0t8hBUF.png",
-    thumbnailSrc: "https://i.imgur.com/xRIhH9V.png"
+    beforeImage: "https://i.imgur.com/AyWbU2g.png",
+    afterImage: "https://i.imgur.com/qqL1DNR.jpeg",
+    thumbnailSrc: "https://i.imgur.com/qqL1DNR.jpeg"
   },
   {
     title: "Argo Dark CC",
