@@ -395,7 +395,7 @@ const CCS = [
   {
     title: "Argo Main CC",
     description: "Argo Main CC renk düzenlemesinin görünümü.",
-    beforeImage: "https://i.imgur.com/ShGSXBv.png",
+    beforeImage: "https://i.imgur.com/maDswfA.png",
     afterImage: "https://i.imgur.com/JTGbPEt.jpeg",
     thumbnailSrc: "https://i.imgur.com/JTGbPEt.jpeg",
   },
