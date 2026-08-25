@@ -399,6 +399,13 @@ const CCS = [
     afterImage: "https://i.imgur.com/T84fAck.png",
     thumbnailSrc: "https://i.imgur.com/zBBnrsc.png",
   },
+  {
+    title: "Argo Efso CC",
+    description: "Argo Efso Fenasal CC görünüm.",
+    beforeImage: "https://i.imgur.com/xRIhH9V.png",
+    afterImage: "https://i.imgur.com/0t8hBUF.png",
+    thumbnailSrc: "https://i.imgur.com/xRIhH9V.png"
+  }
 ]
 
 function CCPage() {
