@@ -766,4 +766,4 @@ function App() {
     </StarsBackground>
   )
 }
-export default App
+export default App 
