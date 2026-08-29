@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense, lazy, memo, useMemo, useCallback } from "react"
 import { TextAnimate } from "@/components/ui/text-animate"
 import {
   motion,
@@ -6,8 +6,10 @@ import {
 } from "motion/react"
 import { StarsBackground } from "@/components/animate-ui/components/backgrounds/stars"
 import { ShoppingCart } from "lucide-react"
-import { ImgComparisonSlider } from '@img-comparison-slider/react';
 
+const ImgComparisonSlider = lazy(() => 
+  import('@img-comparison-slider/react').then(m => ({ default: m.ImgComparisonSlider }))
+)
 
 type Page = "home" | "programs" | "plugins" | "ccs" | "discord"
 
@@ -18,7 +20,7 @@ const pageVariants = {
     y: 0,
     filter: "blur(0px)",
     transition: { 
-      duration: 0.45, 
+      duration: 0.35,
       easing: [0.22, 1, 0.36, 1] 
     },
   },
@@ -27,12 +29,11 @@ const pageVariants = {
     y: -12,
     filter: "blur(4px)",
     transition: { 
-      duration: 0.3, 
+      duration: 0.2,
       easing: "easeIn" 
     },
   },
 }
-
 
 const NAV_ITEMS: { id: Page; label: string }[] = [
   { id: "home", label: "Ana Sayfa" },
@@ -42,7 +43,7 @@ const NAV_ITEMS: { id: Page; label: string }[] = [
   { id: "discord", label: "Discord" },
 ]
 
-function Navbar({
+const Navbar = memo(function Navbar({
   current,
   onNavigate,
 }: {
@@ -53,16 +54,30 @@ function Navbar({
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20)
+    let ticking = false
+    const handler = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20)
+          ticking = false
+        })
+        ticking = true
+      }
+    }
     window.addEventListener("scroll", handler, { passive: true })
     return () => window.removeEventListener("scroll", handler)
   }, [])
+
+  const handleNavClick = useCallback((page: Page) => {
+    onNavigate(page)
+    setMenuOpen(false)
+  }, [onNavigate])
 
   return (
     <motion.nav
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`
         fixed top-0 inset-x-0 z-50
         flex items-center justify-between
@@ -73,9 +88,10 @@ function Navbar({
           : "bg-transparent"
         }
       `}
+      style={{ willChange: "transform" }}
     >
       <button
-        onClick={() => onNavigate("home")}
+        onClick={() => handleNavClick("home")}
         className="flex items-center gap-2 group"
       >
         <div className="
@@ -97,7 +113,7 @@ function Navbar({
         {NAV_ITEMS.map((item) => (
           <button
             key={item.id}
-            onClick={() => onNavigate(item.id)}
+            onClick={() => handleNavClick(item.id)}
             className={`
               relative px-5 py-2.5 rounded-full text-base font-medium
               transition-all duration-200
@@ -131,25 +147,28 @@ function Navbar({
       >
         <motion.span
           animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+          transition={{ duration: 0.2 }}
           className="block h-0.5 w-5 bg-foreground rounded-full"
         />
         <motion.span
           animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+          transition={{ duration: 0.2 }}
           className="block h-0.5 w-5 bg-foreground rounded-full"
         />
         <motion.span
           animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+          transition={{ duration: 0.2 }}
           className="block h-0.5 w-5 bg-foreground rounded-full"
         />
       </button>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.15 }}
             className="
               absolute top-full left-0 right-0
               bg-background/95 backdrop-blur-xl
@@ -162,7 +181,7 @@ function Navbar({
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
-                onClick={() => { onNavigate(item.id); setMenuOpen(false) }}
+                onClick={() => handleNavClick(item.id)}
                 className={`
                   text-left px-4 py-2.5 rounded-xl text-sm font-medium
                   transition-colors duration-150
@@ -180,17 +199,20 @@ function Navbar({
       </AnimatePresence>
     </motion.nav>
   )
-}
+})
 
-  function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
-    return (
-      <motion.div key="home" {...pageVariants} className="min-h-screen">
+const HomePage = memo(function HomePage({ onNavigate }: { onNavigate: (p: Page) => void }) {
+  const handleButtonClick = useCallback((page: Page) => {
+    onNavigate(page)
+  }, [onNavigate])
 
+  return (
+    <motion.div key="home" {...pageVariants} className="min-h-screen">
       <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-24 pb-16 text-center">
         <motion.div
           className="mx-auto max-w-4xl"
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.2 } }}
+          animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 } }}
         >
           <TextAnimate
             animation="blurInUp"
@@ -209,14 +231,14 @@ function Navbar({
               sm:text-6xl md:text-7xl
             "
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.4 } }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }}
           >
             İhtiyacın olan yazılım,
           </motion.h1>
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.3 } }}
           >
             tek yerde.
           </motion.h1>
@@ -224,10 +246,10 @@ function Navbar({
           <motion.div
             className="mt-12 flex flex-wrap items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.8 } }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.4 } }}
           >
             <button
-              onClick={() => onNavigate("programs")}
+              onClick={() => handleButtonClick("programs")}
               className="
                 px-7 py-3 rounded-xl font-semibold text-sm
                 bg-white text-black
@@ -238,7 +260,7 @@ function Navbar({
               Programlara Bak →
             </button>
             <button
-              onClick={() => onNavigate("discord")}
+              onClick={() => handleButtonClick("discord")}
               className="
                 px-7 py-3 rounded-xl font-semibold text-sm
                 bg-white text-black
@@ -253,8 +275,7 @@ function Navbar({
       </section>
     </motion.div>
   )
-}
-
+})
 
 const PROGRAMS = [
   { icon: "Ae", title: "After Effects 2026", version: "Adobe • Güncel sürüm", url: "https://bzzhr.to/uuiu8aol7zpz" },
@@ -281,13 +302,18 @@ const PROGRAMS = [
   { icon: "Tg", title: "Topaz Gigapixel Activator v2", version: "Topaz Labs • Permanently activated", url: "https://bzzhr.to/rb3bz0ujoe2z" },
 ]
 
-function ProgramsPage() {
+const ProgramsPage = memo(function ProgramsPage() {
   const [filter, setFilter] = useState<string>("Tümü")
-  const categories = ["Tümü", "After Effects", "Premiere Pro", "Media Encoder", "Photoshop", "Speech to Text", "Topaz"]
+  const categories = useMemo(() => 
+    ["Tümü", "After Effects", "Premiere Pro", "Media Encoder", "Photoshop", "Speech to Text", "Topaz"],
+    []
+  )
 
-  const filtered = filter === "Tümü"
-    ? PROGRAMS
-    : PROGRAMS.filter((p) => p.title.toLowerCase().includes(filter.toLowerCase().split(" ")[0].toLowerCase()))
+  const filtered = useMemo(() => {
+    return filter === "Tümü"
+      ? PROGRAMS
+      : PROGRAMS.filter((p) => p.title.toLowerCase().includes(filter.toLowerCase().split(" ")[0].toLowerCase()))
+  }, [filter])
 
   return (
     <motion.div key="programs" {...pageVariants} className="min-h-screen pt-24 pb-16 px-6">
@@ -329,8 +355,8 @@ function ProgramsPage() {
           variants={{
             visible: {
               transition: {
-                staggerChildren: 0.03,
-                delayChildren: 0.1,
+                staggerChildren: 0.02, 
+                delayChildren: 0.05, 
               },
             },
           }}
@@ -342,8 +368,7 @@ function ProgramsPage() {
       </div>
     </motion.div>
   )
-}
-
+})
 
 const PLUGINS = [
   { icon: "Ae", title: "Sapphire Plugin", version: "Güncel Sürüm", url: "https://dosya.co/nm3rxo35v1xs/s4pph1r3.rar.html" },
@@ -354,7 +379,7 @@ const PLUGINS = [
   { icon: "Ae", title: "Twixtor Plugin", version: "Güncel Sürüm", url: "https://dosya.co/fh47w33pvmrz/Twixtor.zip.html" },
 ]
 
-function PluginsPage() {
+const PluginsPage = memo(function PluginsPage() {
   return (
     <motion.div key="plugins" {...pageVariants} className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-6xl">
@@ -376,8 +401,8 @@ function PluginsPage() {
           variants={{
             visible: {
               transition: {
-                staggerChildren: 0.03,
-                delayChildren: 0.1,
+                staggerChildren: 0.02,
+                delayChildren: 0.05,
               },
             },
           }}
@@ -389,7 +414,7 @@ function PluginsPage() {
       </div>
     </motion.div>
   )
-}
+})
 
 const CCS = [
   {
@@ -426,7 +451,7 @@ const CCS = [
   }
 ]
 
-function CCPage() {
+const CCPage = memo(function CCPage() {
   const [selected, setSelected] = useState<typeof CCS[0] | null>(null)
 
   return (
@@ -445,7 +470,7 @@ function CCPage() {
               key={cc.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setSelected(cc)}
               className="group cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-1"
             >
@@ -454,6 +479,7 @@ function CCPage() {
                   src={cc.thumbnailSrc}
                   alt={cc.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="h-16 w-16 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center">
@@ -493,13 +519,13 @@ function CCPage() {
         </div>
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {selected && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.15 }}
             className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
             onClick={() => setSelected(null)}
           >
@@ -507,7 +533,7 @@ function CCPage() {
               initial={{ opacity: 0, scale: 0.9, y: 24 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 24 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               className="relative w-full max-w-5xl rounded-3xl border border-white/10 bg-[#0c0c0c] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
@@ -520,28 +546,30 @@ function CCPage() {
                 </svg>
               </button>
 
-              <div
-                className="relative w-full overflow-hidden bg-black"
-                style={{ aspectRatio: "1.878 / 1" }}
-              >
-                <ImgComparisonSlider className="block w-full h-full">
-                  <img
-                    slot="first"
-                    src={selected.beforeImage}
-                    alt="Öncesi"
-                    draggable={false}
-                    className="block w-full h-full object-fill"
-                  />
+              <Suspense fallback={<div className="w-full h-96 bg-black/50 flex items-center justify-center">Yükleniyor...</div>}>
+                <div
+                  className="relative w-full overflow-hidden bg-black"
+                  style={{ aspectRatio: "1.878 / 1" }}
+                >
+                  <ImgComparisonSlider className="block w-full h-full">
+                    <img
+                      slot="first"
+                      src={selected.beforeImage}
+                      alt="Öncesi"
+                      draggable={false}
+                      className="block w-full h-full object-fill"
+                    />
 
-                  <img
-                    slot="second"
-                    src={selected.afterImage}
-                    alt="Sonrası"
-                    draggable={false}
-                    className="block w-full h-full object-fill"
-                  />
-                </ImgComparisonSlider>
-              </div>
+                    <img
+                      slot="second"
+                      src={selected.afterImage}
+                      alt="Sonrası"
+                      draggable={false}
+                      className="block w-full h-full object-fill"
+                    />
+                  </ImgComparisonSlider>
+                </div>
+              </Suspense>
 
               <div className="flex items-center justify-between px-6 py-4">
                 <div className="flex items-center gap-3">
@@ -549,14 +577,14 @@ function CCPage() {
                   <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">CC</span>
                 </div>
                 <a
-                href={selected.saleUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2 text-sm font-semibold text-accent transition-colors"
-              >
-                <ShoppingCart className="size-4" />
-                Satın al
-              </a>
+                  href={selected.saleUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-xl bg-accent/10 hover:bg-accent/20 px-4 py-2 text-sm font-semibold text-accent transition-colors"
+                >
+                  <ShoppingCart className="size-4" />
+                  Satın al
+                </a>
               </div>
             </motion.div>
           </motion.div>
@@ -564,10 +592,9 @@ function CCPage() {
       </AnimatePresence>
     </motion.div>
   )
-}
+})
 
-
-function DiscordPage() {
+const DiscordPage = memo(function DiscordPage() {
   return (
     <motion.div key="discord" {...pageVariants} className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-lg">
@@ -606,10 +633,9 @@ function DiscordPage() {
       </div>
     </motion.div>
   )
-}
+})
 
-
-function SoftwareCard({
+const SoftwareCard = memo(function SoftwareCard({
   icon,
   title,
   version,
@@ -629,7 +655,7 @@ function SoftwareCard({
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.4, ease: "easeOut" },
+          transition: { duration: 0.3, ease: "easeOut" },
         },
       }}
       whileHover={{ scale: 1.02, y: -4, transition: { type: "spring", stiffness: 300, damping: 20 } }}
@@ -674,10 +700,9 @@ function SoftwareCard({
       </motion.a>
     </motion.article>
   )
-}
+})
 
-
-function Footer() {
+const Footer = memo(function Footer() {
   return (
     <footer className="border-t border-white/10 px-6 py-12">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
@@ -707,6 +732,7 @@ function Footer() {
               group-hover:ring-white/20
               group-hover:scale-105
             "
+            loading="lazy"
           />
 
           <div className="text-left">
@@ -751,15 +777,15 @@ function Footer() {
       </div>
     </footer>
   )
-}
+})
 
 function App() {
   const [page, setPage] = useState<Page>("home")
 
-  const navigate = (p: Page) => {
+  const navigate = useCallback((p: Page) => {
     window.scrollTo({ top: 0, behavior: "smooth" })
     setPage(p)
-  }
+  }, [])
 
   return (
     <StarsBackground
@@ -782,4 +808,5 @@ function App() {
     </StarsBackground>
   )
 }
+
 export default App
