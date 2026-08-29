@@ -723,7 +723,7 @@ const Footer = memo(function Footer() {
           "
         >
           <img
-            src="https://i.pinimg.com/1200x/31/a5/27/31a5279811c56a9d3da2c517036c4d82.jpg"
+            src="https://i.imgur.com/bjOx5Vl.jpeg"
             alt="0akh"
             className="
               h-12 w-12 rounded-full object-cover
@@ -740,7 +740,7 @@ const Footer = memo(function Footer() {
               ! sudo apt install discrd
             </p>
             <p className="text-xs text-white/40">
-              Discord • 0akh baba
+              Discord • 0akh
             </p>
           </div>
 
